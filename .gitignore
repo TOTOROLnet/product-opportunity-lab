@@ -1,0 +1,24 @@
+# Dependencies (never commit)
+node_modules/
+
+# Build output — Pages builds fresh in CI; do not commit
+dist/
+build/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# OS
+.DS_Store
+
+# Transient input reports pulled at run time from public product-hunt-radar.
+# Provenance copy is kept per day at daily/<date>/source-report.md instead.
+inputs/product-hunt-reports/*.md
+
+# Temp shallow clone used by collect_recent_reports.py
+.radar-cache/
+
+# Logs
+*.log

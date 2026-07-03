@@ -1,0 +1,61 @@
+name: Sync Cursor output to main
+
+on:
+  push:
+    branches:
+      - 'cursor/**'
+
+permissions:
+  contents: write
+
+jobs:
+  sync-daily:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Cursor branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          path: cursor-src
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+
+      - name: Copy daily outputs to main
+        run: |
+          mkdir -p main-repo/daily
+          if [ -d cursor-src/daily ]; then
+            cp -R cursor-src/daily/. main-repo/daily/ || true
+          fi
+          # Never sync build artifacts or deps.
+          find main-repo/daily -type d -name node_modules -prune -exec rm -rf {} + 2>/dev/null || true
+          find main-repo/daily -type d -name dist -prune -exec rm -rf {} + 2>/dev/null || true
+
+      - name: Commit and push to main
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          cd main-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add daily
+
+          if git diff --cached --quiet; then
+            echo "No daily changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Sync daily output from $BRANCH"
+          git push origin main
+
+      - name: Delete Cursor branch
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          cd main-repo
+          git push origin --delete "$BRANCH" || true

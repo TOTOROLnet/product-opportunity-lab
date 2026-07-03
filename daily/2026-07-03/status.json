@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-03",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-03.md",
+  "opportunity": {
+    "selected": "Gavel — Agent 动作审批驾驶舱",
+    "score": 24,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-03/",
+  "generated_at": "2026-07-03T12:00:00+08:00"
+}

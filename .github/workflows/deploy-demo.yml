@@ -1,0 +1,72 @@
+name: Deploy demos to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'daily/**'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: deploy-demo
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Determine latest dated demo
+        id: pick
+        run: |
+          LATEST="$(ls -1d daily/*/ 2>/dev/null | grep -E 'daily/[0-9]{4}-[0-9]{2}-[0-9]{2}/' | sort | tail -n1 | sed 's#daily/##; s#/##')"
+          echo "date=$LATEST" >> "$GITHUB_OUTPUT"
+          if [ -n "$LATEST" ] && [ -f "daily/$LATEST/demo/package.json" ]; then
+            echo "has_demo=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "has_demo=false" >> "$GITHUB_OUTPUT"
+          fi
+          echo "Latest dated dir: '$LATEST'"
+
+      - name: Build latest demo
+        if: steps.pick.outputs.has_demo == 'true'
+        working-directory: daily/${{ steps.pick.outputs.date }}/demo
+        run: |
+          if [ -f package-lock.json ]; then npm ci || npm install; else npm install; fi
+          npm run build
+
+      - name: Assemble Pages site
+        run: |
+          mkdir -p public-site
+          # Regenerate root index from ALL dates present in main (source of truth).
+          python3 scripts/build_pages_index.py --daily daily --out public-site/index.html
+          # Stage the freshly built latest demo under its date folder.
+          if [ "${{ steps.pick.outputs.has_demo }}" = "true" ]; then
+            mkdir -p "public-site/${{ steps.pick.outputs.date }}"
+            cp -R "daily/${{ steps.pick.outputs.date }}/demo/dist/." "public-site/${{ steps.pick.outputs.date }}/"
+          fi
+          # Prevent Jekyll from touching Vite assets (folders starting with _ etc.)
+          touch public-site/.nojekyll
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public-site
+          publish_branch: gh-pages
+          keep_files: true
+          user_name: 'github-actions[bot]'
+          user_email: '41898282+github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Deploy demos to Pages'
