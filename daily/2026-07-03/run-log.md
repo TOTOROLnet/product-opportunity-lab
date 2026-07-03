@@ -31,9 +31,22 @@
 - 无阻断性问题。归一化后初始总风险触顶 100（多条高危叠加），损失部分头部区分度；before/after 相对变化不受影响，已在 evaluation 记为待改进项。
 - 覆盖旧产物时同步删除了旧的 Contextlens demo 组件与旧截图；因 CI 的 sync 现已按日期 `rm -rf` 镜像（提交 b81a5e5），main 上不会残留孤儿文件，无需空占位缓解。
 
+## CI 观察（本次真实发生，供 owner 修复）
+
+首次 push 后 `sync-cursor-output.yml` 的表现（run 28649304292）：
+- ✅「Commit and push to main」成功——`daily/2026-07-03/`（Fusebox）已镜像进 main（commit `548fec0`）。
+- ❌「Trigger Pages deploy」失败：`gh workflow run deploy-demo.yml` 返回 `HTTP 403: Resource not accessible by integration`。
+  根因：sync 工作流的 `permissions:` 只给了 `contents: write`，未给 `actions: write`，因此 GITHUB_TOKEN 无权创建 workflow_dispatch。
+- ❌ 因上一步失败（`bash -e`），后续「Delete Cursor branch」未执行 → cursor 分支未被清理。
+
+**修复（本次已在本分支施加，使本轮 deploy 能触发 + 自清理）**：给 sync 工作流补 `actions: write`。
+**持久修复需 owner 在 main 上做**：因为 sync 只镜像 `daily/**`、不携带 `.github/`，本分支的工作流修复不会进入 main；
+未来的 cursor 分支从 main 拉起时仍会带上未修复的工作流。owner 需把 `permissions: { contents: write, actions: write }`
+提交到 main 的 `sync-cursor-output.yml`（或改用具备 `actions:write` 的 PAT / 让 deploy-demo.yml 以 `workflow_run` 承接）。
+
 ## 最终结论
 
 - 选中机会 **Fusebox**，24/25，达门槛。
 - Demo build 成功、smoke 通过、必需文件齐全、人工验证核心流程闭环。
-- **status = PASS，reason = ok**。
-- 在线体验：https://totorolnet.github.io/product-opportunity-lab/2026-07-03/
+- **status = PASS，reason = ok**。产物已镜像进 main。
+- 在线体验：https://totorolnet.github.io/product-opportunity-lab/2026-07-03/ （部署依赖上述 CI 修复生效后刷新）。
