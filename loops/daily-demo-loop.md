@@ -183,4 +183,5 @@ python3 scripts/validate_daily_output.py --date latest
 
 - 不提交 `node_modules/`、`dist/`（已在 `.gitignore`）。
 - Agent 把 `daily/DATE/` 产物提交到 `cursor/**` 分支并 push；
-  之后由 `.github/workflows/sync-cursor-output.yml` 自动同步进 main，`deploy-demo.yml` 自动部署 Pages。
+  之后由 `.github/workflows/sync-cursor-output.yml` 自动同步进 main，并触发 `deploy-demo.yml` 部署 Pages。
+- **不要创建 Pull Request**：cursor/** 分支会被 Sync Action 秒级删除，开 PR 只会失败且无必要。

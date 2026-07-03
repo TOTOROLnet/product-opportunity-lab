@@ -25,17 +25,25 @@ jobs:
           ref: main
           path: main-repo
 
-      - name: Copy daily outputs to main
+      - name: Mirror daily/ from Cursor into main (delete orphans per date)
         run: |
           mkdir -p main-repo/daily
           if [ -d cursor-src/daily ]; then
-            cp -R cursor-src/daily/. main-repo/daily/ || true
+            # Mirror each date folder so removed/renamed files never linger on main.
+            for d in cursor-src/daily/*/; do
+              [ -d "$d" ] || continue
+              name="$(basename "$d")"
+              rm -rf "main-repo/daily/$name"
+              mkdir -p "main-repo/daily/$name"
+              cp -R "$d." "main-repo/daily/$name/"
+            done
+            [ -f cursor-src/daily/.gitkeep ] && cp cursor-src/daily/.gitkeep main-repo/daily/.gitkeep || true
           fi
-          # Never sync build artifacts or deps.
-          find main-repo/daily -type d -name node_modules -prune -exec rm -rf {} + 2>/dev/null || true
-          find main-repo/daily -type d -name dist -prune -exec rm -rf {} + 2>/dev/null || true
+          # Never sync dependencies or build output.
+          find main-repo/daily -type d \( -name node_modules -o -name dist \) -prune -exec rm -rf {} + 2>/dev/null || true
 
       - name: Commit and push to main
+        id: commit
         env:
           BRANCH: ${{ github.ref_name }}
         run: |
@@ -43,15 +51,25 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add daily
+          git add -A daily
 
           if git diff --cached --quiet; then
             echo "No daily changes to commit."
-            exit 0
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "Sync daily output from $BRANCH"
+            git push origin main
+            echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
-          git commit -m "Sync daily output from $BRANCH"
-          git push origin main
+      # A push made with GITHUB_TOKEN does NOT trigger other workflows (anti-recursion),
+      # so deploy-demo.yml won't fire from the push above. workflow_dispatch IS an
+      # exception, so we explicitly dispatch the deploy here.
+      - name: Trigger Pages deploy
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run deploy-demo.yml --ref main -R "${{ github.repository }}"
 
       - name: Delete Cursor branch
         env:

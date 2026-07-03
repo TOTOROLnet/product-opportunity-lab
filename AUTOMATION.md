@@ -40,7 +40,12 @@ Timezone:   Asia/Shanghai
 
 完成后把 daily/<date>/ 提交到工作分支并 push（Cursor 默认推到 cursor/** 分支），
 其余同步与部署由 GitHub Actions 自动完成。
+完成后不要创建 Pull Request：cursor/** 分支会被 Sync Action 秒级删除，
+开 PR 只会失败且无必要，产物已由 Action 自动进入 main。
 ```
+
+> 说明：指令末尾特意加了“不要创建 Pull Request”。否则 Cursor 云端 Agent 跑完会尝试
+> 开 PR，而此时分支已被 Sync Action 删除，会显示一个无害但扰人的“PR 失败”。
 
 ## 三、时序提醒（lab vs radar）
 
@@ -51,9 +56,16 @@ lab 每天读“最近 1 份可用报告”。若 lab 与 radar 都在 08:00 运
 ## 四、自动同步与部署（已内置，无需人工）
 
 - `.github/workflows/sync-cursor-output.yml`：监听 `cursor/**` 分支 push →
-  把 `daily/*` 同步进 `main` → 删除 cursor 分支。
-- `.github/workflows/deploy-demo.yml`：监听 `main` 上 `daily/**` 变更 →
+  **按日期目录镜像**同步进 `main`（`rm -rf` 旧目录后复制，避免旧文件残留导致构建失败）→
+  用 `workflow_dispatch` 触发部署 → 删除 cursor 分支。
+- `.github/workflows/deploy-demo.yml`：由上面 dispatch 触发（或直接 push main 触发）→
   构建最新日期的 Demo → 部署到 GitHub Pages 的 `/<date>/` 子目录，并刷新根 index。
+
+> 两个已知坑及其规避：
+> 1. **同步残留**：同一天二次运行 / 换方向时，旧 Demo 文件若不删会污染 main 并导致 `tsc` 失败。
+>    sync 已改为按日期 `rm -rf` 后镜像复制，彻底规避。
+> 2. **部署不触发**：用 `GITHUB_TOKEN` 推 main 不会触发别的 workflow（GitHub 防递归），
+>    但 `workflow_dispatch` 是例外，所以 sync 用 `gh workflow run deploy-demo.yml` 显式触发部署。
 
 ## 五、GitHub Pages 一次性开启
 
