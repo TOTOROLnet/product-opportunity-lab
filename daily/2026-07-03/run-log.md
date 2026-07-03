@@ -24,7 +24,20 @@
 ## 遇到的问题
 - 无 build 失败。唯一小问题：缺 favicon 触发一次无害 404，不影响功能（未来可加 favicon 消除）。
 
+## 推送与同步阶段发现的基础设施问题（重要，需 owner 关注）
+推送到 `cursor/**` 分支后，`sync-cursor-output.yml` 会把 `daily/` 同步进 `main` 并删除该 cursor 分支。过程中发现两个既有 CI 缺陷：
+
+1. **同步用 `cp -R` 合并、不镜像删除**：`cp -R cursor-src/daily/. main-repo/daily/` 只新增/覆盖，**不删除**。本次我把旧 Gavel demo 的文件删掉换成 Contextlens，但旧文件（`Inbox.tsx / Policies.tsx / DecisionDetail.tsx / RiskBadge.tsx / mockData.ts`）仍残留在 main，且它们 import 已被我替换掉的旧 types → `tsc` 报 TS2305 → **Pages 构建会失败**。
+   - 本次规避：把这 5 个残留文件在分支内**覆盖为空占位模块**（`export {}`，会被 tree-shake，不影响我的 bundle；已本地复现 union 构建失败并验证占位后通过）。
+   - 建议根治：让 sync 对每个日期目录做**镜像**（如先 `rm -rf main-repo/daily/<date>` 再 `cp`，或用 `rsync -a --delete`）。
+2. **Action 用 `GITHUB_TOKEN` 推送 main 不会触发下游 workflow**：sync 用默认 `GITHUB_TOKEN` `git push origin main`，按 GitHub 规则不会触发 `deploy-demo.yml`（观察：sync 提交 `36961f2` 后无 Deploy 运行；Pages 仍是旧 Gavel）。
+   - 建议根治：sync 改用具 `workflow` 权限的 PAT 推送 main，或在 sync 末尾 `workflow_dispatch`/`repository_dispatch` 触发部署。
+   - 我未修改 workflow：修改 `.github/workflows/*` 需 token 具备 workflow 权限，贸然改动有被拒风险且属 owner 基础设施，故仅规避 + 上报。
+
+（残留的 3 张旧截图 `detail/inbox/policies.png` 因同一 `cp -R` 限制仍在 main，仅影响观感、不影响构建/部署。）
+
 ## 最终结论
 - 选中机会：**Contextlens — Agent 上下文窗口 X 光片**，评分 24/25。
-- Demo：build 成功、产物齐全、核心流程实机闭合。
+- Demo：build 成功（clean 与 union 两种状态均验证通过）、产物齐全、核心流程实机闭合。
 - 状态：**PASS**（reason=ok）。
+- 同步：daily 产物已由 CI 同步进 main（sync 成功）。Pages 自动部署受上述缺陷 2 阻塞，需 owner 侧修复 CI 才能刷新到 Contextlens。
