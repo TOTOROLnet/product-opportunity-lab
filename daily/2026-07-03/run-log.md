@@ -1,34 +1,30 @@
 # Run Log — 2026-07-03
 
-## 输入
-- 使用报告：product-hunt-radar `reports/2026-07-03.md`（自 `collect_recent_reports.py --days 1` 自拉取，最新 1 份）。
-- provenance 副本：`source-report.md`。
+## 使用的报告
+- `source-report.md`（product-hunt-radar，日期 2026-07-03）。
+- 由 `python3 scripts/collect_recent_reports.py --days 1` 于运行时浅克隆公共 radar 仓库自动拉取，最近 1 份 = `2026-07-03.md`，并复制为本目录 provenance。
 
-## Loop 1 — 机会发现
-- 客观提取信号：执行证据层（Retrace）、人类审批成为核心交互（Basedash / Banger Mail / PieterPost / Macuse）、上下文记忆基础设施化（scritty / Context.dev / Needle）。
-- 独立判断：三条趋势的汇合点是"人类审批的那一刻"；审批只给 payload 会退化为橡皮图章；人类裁决未被沉淀复用。
-- 3 候选：A Gavel 审批驾驶舱（24/25）、B Verdict-to-Guard 否决即护栏（23/25）、C Decision Ledger 决策记忆（21/25）。
-- 选择：A（24/25），达到 16/25 门槛 → 进入 Demo 开发。
+## 关于日期冲突的决策（诚实记录）
+- 本次自动化触发时间 2026-07-03T06:00Z（北京时间 14:00），故 DATE = `2026-07-03`。
+- 该目录原先已有**脚手架首跑示例**（Gavel · Agent 动作审批驾驶舱），且当天 radar 只有同一份报告。
+- 决策：作为当天真实运行，我**独立重跑**并**刻意选择不同于示例的创新机会**（Context Engineering 方向），
+  以体现"独立判断 + 不照抄"，并**覆盖**旧示例产物（旧 Gavel demo 与其截图已移除）。理由：loop 设计为每个日期一份 canonical 产物；示例应被真实运行取代。
 
-## Loop 2 — Demo 设计
-- 分型：可视化/交互类 → 直接做可点击交互 Demo。
-- 三屏：审批收件箱 / 决策详情 / 策略与学习。见 `demo-spec.md`。
+## 各 Loop 关键决策
+- **Loop 1（机会发现）**：从报告提取 3 类信号（执行证据/记忆-上下文/人类审批）。独立判断：报告三条趋势都停在"结果层"，被忽视的底层空位是"上下文窗口本身不可观测"。生成 3 个候选并五维打分：
+  - A Contextlens（上下文窗口 X 光）**24/25** ← 选中
+  - B Handoff Pack（开机上下文简报）21/25
+  - C Rehearsal（上线前对抗彩排）20/25
+  - 最高分 24 ≥ 16 门槛 → 进入 Demo。
+- **Loop 2（Demo 设计）**：判定为"抽象/基础设施类" → 采用"模拟体验 + 价值可视化"（模拟轨迹回放 + 窗口结构视图 + before/after 对比）。3 个视图：Run X 光 / 修复对比 / X 光报告。
+- **Loop 3（开发）**：Vite + React + TS，`base:'./'`；mock 场景（baseline 驱逐→危险放款 / fixed Pin+压缩→安全审批）。组件：Timeline / ContextWindow / StepDetail / Report / Compare。
+- **Loop 4（验证）**：`bash scripts/validate_demo.sh daily/2026-07-03/demo` → **第 1 轮通过**（npm install OK、tsc+vite build OK、smoke OK，1 个 JS bundle）。build 修复轮次 0/3。
+- **Loop 5（自评）**：浏览器实机验证渲染与全部交互通过（仅 favicon 404，无 JS 错误），留存 3 张截图；结论 **PASS**。
 
-## Loop 3 — Demo 开发
-- 技术栈：Vite + React + TypeScript，`vite.config.ts` 使用 `base: './'`。
-- 组件：Inbox / DecisionDetail / Policies / RiskBadge + mock 数据；深链 `?action=` `?view=`。
+## 遇到的问题
+- 无 build 失败。唯一小问题：缺 favicon 触发一次无害 404，不影响功能（未来可加 favicon 消除）。
 
-## Loop 4 — 自动验证
-- `bash scripts/validate_demo.sh daily/2026-07-03/demo`：npm install 成功、`npm run build` 成功、smoke 检查通过（1 个 JS bundle）。
-- 构建修复轮次：0（首次即通过）。
-- 实际渲染验证：用系统 Chromium 无头截图三屏，DOM 校验 `brand=Gavel, cards=4`，首屏非空白。
-
-## Loop 5 — 体验自评
-- 结论 PASS，见 `evaluation.md`。
-
-## 产物
-opportunity.md / demo-spec.md / demo/ / evaluation.md / run-log.md / status.json / source-report.md / screenshots/*
-
-## 备注
-- 首轮由本地 Cursor 手动执行以验证端到端框架；后续由每天 08:00 的 Cursor Automation 自动执行。
-- Pages 部署 URL 在仓库开启 GitHub Pages 后由 deploy-demo.yml 自动生效。
+## 最终结论
+- 选中机会：**Contextlens — Agent 上下文窗口 X 光片**，评分 24/25。
+- Demo：build 成功、产物齐全、核心流程实机闭合。
+- 状态：**PASS**（reason=ok）。

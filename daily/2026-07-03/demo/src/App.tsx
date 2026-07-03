@@ -1,116 +1,106 @@
 import { useMemo, useState } from 'react'
-import type { AgentAction, Policy, PolicyMode, Verdict } from './types'
-import { initialActions, initialPolicies } from './data/mockData'
-import Inbox from './components/Inbox'
-import DecisionDetail from './components/DecisionDetail'
-import Policies from './components/Policies'
+import type { Scenario } from './types'
+import { scenarios } from './data/scenario'
+import ContextWindow, { KIND_META } from './components/ContextWindow'
+import Timeline from './components/Timeline'
+import StepDetail from './components/StepDetail'
+import Report from './components/Report'
+import Compare from './components/Compare'
 
-type View = 'inbox' | 'policies'
+type View = 'run' | 'compare' | 'report'
 
-const WEEKLY_AUTO_BASE = 37 // mock: 本周已被既有策略自动处理的动作数
-
-function derivePolicy(action: AgentAction): Policy {
-  let rule = `同类动作（${action.tool}）默认需人工审批`
-  let mode: PolicyMode = 'needs_approval'
-  switch (action.tool) {
-    case 'postgres.query':
-      rule = '不带 LIMIT 或软删除的批量 DELETE 一律拦截'
-      mode = 'block'
-      break
-    case 'stripe.refunds.create':
-      rule = '单笔退款 > $4,000 需人工审批'
-      mode = 'needs_approval'
-      break
-    case 'resend.batch.send':
-      rule = '群发触达量 > 5,000 需人工审批'
-      mode = 'needs_approval'
-      break
-  }
-  return {
-    id: `pol-${action.id}`,
-    rule,
-    mode,
-    source: 'auto',
-    origin: `源自今天对「${action.title}」的拒绝`,
-  }
+function Legend() {
+  return (
+    <div className="legend">
+      {Object.entries(KIND_META).map(([k, v]) => (
+        <span key={k} className="legend-item">
+          <span className="dot" style={{ background: v.color }} /> {v.label}
+        </span>
+      ))}
+    </div>
+  )
 }
 
-const params = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '')
-const initialView: View = params.get('view') === 'policies' ? 'policies' : 'inbox'
-const initialSelected = params.get('action')
+function VerdictStrip({ scenario }: { scenario: Scenario }) {
+  const v = scenario.verdict
+  return (
+    <div className={`verdict-strip verdict-${v.kind}`}>
+      <span className="vs-badge">{v.kind === 'danger' ? '⛔' : '✅'}</span>
+      <span className="vs-headline">{v.headline}</span>
+      <span className="vs-detail">{v.detail}</span>
+    </div>
+  )
+}
 
 export default function App() {
-  const [actions, setActions] = useState<AgentAction[]>(initialActions)
-  const [policies, setPolicies] = useState<Policy[]>(initialPolicies)
-  const [view, setView] = useState<View>(initialView)
-  const [selectedId, setSelectedId] = useState<string | null>(initialSelected)
-  const [decidedCount, setDecidedCount] = useState(0)
-  const [autoHandled, setAutoHandled] = useState(WEEKLY_AUTO_BASE)
+  const [scenarioId, setScenarioId] = useState<Scenario['id']>('baseline')
+  const [view, setView] = useState<View>('run')
+  const [stepId, setStepId] = useState(4)
 
-  const selected = actions.find((a) => a.id === selectedId) ?? null
-  const pendingCount = actions.filter((a) => a.status === 'pending').length
-
-  const avgDecisionSec = useMemo(() => (decidedCount === 0 ? 0 : 9), [decidedCount])
-
-  function handleVerdict(id: string, verdict: Verdict, createPolicy: boolean) {
-    setActions((prev) =>
-      prev.map((a) => (a.id === id ? { ...a, status: verdict } : a)),
-    )
-    setDecidedCount((c) => c + 1)
-    if (verdict === 'rejected' && createPolicy) {
-      const action = actions.find((a) => a.id === id)
-      if (action) {
-        setPolicies((prev) =>
-          prev.some((p) => p.id === `pol-${action.id}`) ? prev : [derivePolicy(action), ...prev],
-        )
-        setAutoHandled((n) => n + 1)
-      }
-    }
-    setSelectedId(null)
-  }
+  const scenario = scenarios[scenarioId]
+  const step = useMemo(
+    () => scenario.steps.find((s) => s.id === stepId) ?? scenario.steps[0],
+    [scenario, stepId],
+  )
 
   return (
     <div className="app">
       <header className="topbar">
         <div className="brand">
-          <span className="brand-mark">§</span>
+          <div className="logo">◐</div>
           <div>
-            <div className="brand-name">Gavel</div>
-            <div className="brand-sub">Agent 动作审批驾驶舱</div>
+            <div className="brand-name">Contextlens</div>
+            <div className="brand-tag">Agent 上下文窗口 X 光片 · 看清每一步窗口里装了什么、什么被挤掉了</div>
           </div>
         </div>
-
-        <nav className="nav">
-          <button className={view === 'inbox' ? 'active' : ''} onClick={() => setView('inbox')}>
-            收件箱{pendingCount > 0 && <span className="badge">{pendingCount}</span>}
-          </button>
-          <button className={view === 'policies' ? 'active' : ''} onClick={() => setView('policies')}>
-            策略与学习
-          </button>
+        <nav className="tabs">
+          <button className={view === 'run' ? 'on' : ''} onClick={() => setView('run')}>Run X 光</button>
+          <button className={view === 'compare' ? 'on' : ''} onClick={() => setView('compare')}>修复对比</button>
+          <button className={view === 'report' ? 'on' : ''} onClick={() => setView('report')}>X 光报告</button>
         </nav>
-
-        <div className="metrics">
-          <div className="metric"><span className="m-num">{pendingCount}</span><span className="m-label">待裁决</span></div>
-          <div className="metric"><span className="m-num">{decidedCount}</span><span className="m-label">今日已裁决</span></div>
-          <div className="metric"><span className="m-num">{avgDecisionSec}s</span><span className="m-label">平均耗时</span></div>
-          <div className="metric"><span className="m-num">{autoHandled}</span><span className="m-label">本周策略自动处理</span></div>
-        </div>
       </header>
 
-      <main className="content">
-        {view === 'inbox' ? (
-          <Inbox actions={actions} onSelect={setSelectedId} />
-        ) : (
-          <Policies policies={policies} />
-        )}
-      </main>
-
-      {selected && (
-        <DecisionDetail action={selected} onClose={() => setSelectedId(null)} onVerdict={handleVerdict} />
+      {view !== 'compare' && (
+        <div className="scenario-switch">
+          <span className="ss-label">场景</span>
+          {(Object.keys(scenarios) as Scenario['id'][]).map((id) => (
+            <button
+              key={id}
+              className={`ss-btn ss-${id} ${scenarioId === id ? 'on' : ''}`}
+              onClick={() => setScenarioId(id)}
+            >
+              {scenarios[id].name}
+              <span className="ss-sub">{scenarios[id].subtitle}</span>
+            </button>
+          ))}
+        </div>
       )}
 
-      <footer className="app-foot">
-        纯前端 Demo · 数据均为 mock · Product Opportunity Lab / 2026-07-03
+      <main className="content">
+        {view === 'run' && (
+          <>
+            <VerdictStrip scenario={scenario} />
+            <div className="run-grid">
+              <aside className="run-left">
+                <Timeline steps={scenario.steps} selectedId={step.id} onSelect={setStepId} />
+              </aside>
+              <section className="run-right">
+                <StepDetail step={step} />
+                <ContextWindow blocks={step.blocks} budgetTokens={scenario.budgetTokens} />
+                <Legend />
+              </section>
+            </div>
+          </>
+        )}
+
+        {view === 'compare' && <Compare />}
+
+        {view === 'report' && <Report scenario={scenario} />}
+      </main>
+
+      <footer className="footer">
+        纯前端演示 · 数据全部为 mock，不接任何真实模型 / 后端 / 外部 API ·
+        product-opportunity-lab / 2026-07-03
       </footer>
     </div>
   )

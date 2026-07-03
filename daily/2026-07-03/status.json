@@ -4,7 +4,7 @@
   "reason": "ok",
   "source_report": "2026-07-03.md",
   "opportunity": {
-    "selected": "Gavel — Agent 动作审批驾驶舱",
+    "selected": "Contextlens — Agent 上下文窗口 X 光片",
     "score": 24,
     "threshold": 16,
     "passed_threshold": true
@@ -13,7 +13,7 @@
     "built": true,
     "build_attempts": 1,
     "tech": "vite-react-ts",
-    "strategy": "interactive"
+    "strategy": "simulation"
   },
   "files": {
     "opportunity": true,
@@ -23,5 +23,5 @@
     "demo": true
   },
   "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-03/",
-  "generated_at": "2026-07-03T12:00:00+08:00"
+  "generated_at": "2026-07-03T14:20:00+08:00"
 }
