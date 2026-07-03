@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  actions: write  # needed for `gh workflow run` (dispatch deploy-demo.yml)
 
 jobs:
   sync-daily:
