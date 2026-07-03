@@ -4,7 +4,7 @@
   "reason": "ok",
   "source_report": "2026-07-03.md",
   "opportunity": {
-    "selected": "Contextlens — Agent 上下文窗口 X 光片",
+    "selected": "Fusebox — Agent 能力配电箱 / 高危工具链路控制面",
     "score": 24,
     "threshold": 16,
     "passed_threshold": true
@@ -23,5 +23,5 @@
     "demo": true
   },
   "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-03/",
-  "generated_at": "2026-07-03T14:20:00+08:00"
+  "generated_at": "2026-07-03T16:42:00+08:00"
 }

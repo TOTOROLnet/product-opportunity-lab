@@ -1,9 +1,8 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
 
-// base: './' keeps asset paths relative so the build works when served from
-// any GitHub Pages subpath, e.g. /product-opportunity-lab/2026-07-03/
+// base: './' 保证部署到任意 GitHub Pages 子目录都能正确加载资源。
 export default defineConfig({
   base: './',
   plugins: [react()],
-})
+});
