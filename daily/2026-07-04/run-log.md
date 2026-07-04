@@ -29,7 +29,9 @@
 
 ## CI / 部署备注
 
-- 本分支基于 main，`.github/workflows/sync-cursor-output.yml` 已含 `actions: write`（main 于 commit 8c2a7cc 修复），本次继承该修复，预期 push 后 sync→main→dispatch deploy-demo→删除 cursor 分支可正常完成。push 后会 `gh run list` 复核；若 Sync 在 “Trigger Pages deploy” 失败，将按 playbook 重新在本分支施加 actions:write 修复并重推。
+- 本分支基于 main，`.github/workflows/sync-cursor-output.yml` 已含 `actions: write`（main 于 commit 8c2a7cc 修复），本次继承该修复。
+- **第 1 次 push 后**：Sync（success）→ Deploy demos to GitHub Pages（peaceiris 推 gh-pages，success）→ 但 GitHub 原生 “pages build and deployment” 报 `Deployment failed, try again later.`（`actions/deploy-pages` CDN 发布的**瞬时基础设施错误**，非代码/配置问题）。gh-pages 分支内容已更新到最新，但该次 CDN 发布未成功，导致 `/2026-07-04/` 暂时 404（根首页与 `/2026-07-03/` 仍 200，站点整体正常）。cursor 分支已被 sync 正常删除。
+- **重试**：`gh` 在本环境只读、无法手动 `gh workflow run` 重跑。故在本 run-log 记录该瞬时失败后**再次 push 本分支**——sync 检测到 daily/ 变更会重新 dispatch deploy-demo，从而重新触发 Pages 构建（瞬时错误一般重试即恢复）。若仍失败，站点内容已在 gh-pages，GitHub 侧稍后自愈或下一次 daily 运行会一并发布。
 
 ## 最终结论
 
