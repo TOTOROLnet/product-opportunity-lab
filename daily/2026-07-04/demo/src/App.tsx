@@ -75,7 +75,9 @@ export default function App() {
           纯前端 mock Demo · 数据与判定均为演示用途，非真实运行结果 · 不接后端 / 数据库 / 外部 API / 真实
           LLM
         </span>
-        <span className="foot-src">source: product-hunt-radar 2026-07-04（Osloq / Glaze）· 创新切入点非照抄</span>
+        <span className="foot-src">
+          source: product-hunt-radar 2026-07-04（Osloq / Glaze）· 创新切入点非照抄 · build 2026-07-04
+        </span>
       </footer>
     </div>
   );
