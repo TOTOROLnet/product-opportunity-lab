@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-04",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-04.md",
+  "opportunity": {
+    "selected": "Attestor — Agent 自述报告的证据审计器 / 反幻觉式完成验收台",
+    "score": 24,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-04/",
+  "generated_at": "2026-07-04T09:20:00+08:00"
+}
