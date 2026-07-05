@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-05",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-05.md",
+  "opportunity": {
+    "selected": "Contour — 结构化产物的语义 diff + 意图/不变量评审层",
+    "score": 24,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-05/",
+  "generated_at": "2026-07-05T09:24:00+08:00"
+}
