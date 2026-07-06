@@ -1,0 +1,23 @@
+{
+  "name": "datum-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Datum — Agent 交付证据的验收基线与回归哨兵：把一次性证据 bundle 升级为可版本化基线，对每次重跑做'验收标准 ⇄ 证据'的跨 run 增量复判，只顶出 PASS→FAIL 的回归与证据 delta（纯前端 mock Demo）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
+  }
+}
