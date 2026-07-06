@@ -110,7 +110,7 @@ export default function App() {
       <footer className="footer">
         <span>Datum · 纯前端 mock 演示 · 全部证据为模拟数据，不接真实环境 / 后端 / 外部 API</span>
         <span className="footer-src">
-          源信号：product-hunt-radar 2026-07-06（TryCase · CircleChat）｜产品机会实验室每日循环
+          源信号：product-hunt-radar 2026-07-06（TryCase · CircleChat）｜产品机会实验室每日循环 · rev.2
         </span>
       </footer>
     </div>
