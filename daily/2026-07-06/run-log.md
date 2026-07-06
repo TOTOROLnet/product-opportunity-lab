@@ -42,5 +42,11 @@
 - 无阻塞性问题。build 首次通过；computerUse 未发现视觉 bug。
 - computerUse 子代理对中文文案存在少量 OCR 误读（如把验收项文案读成别的字），经核对为读图误差，非应用缺陷。
 
+## 部署 / 发布（Pages）
+- 首次 push 后：Sync→main 成功、Deploy demos 成功，但 GitHub **原生 `pages build and deployment` 两次失败**，报 `Deployment failed, try again later.`（GitHub Pages 后端 transient 故障，非本仓库代码问题）；期间 `/2026-07-06/` = 404，根 `/` = 200（服务的是上一次成功发布的快照）。
+- 处理：按既定 playbook，做「改动构建产物以重触发原生构建」的小改动（footer rev.2 → rev.3，改变 JS bundle 哈希 → 新 dist → 新 gh-pages commit → 重触发原生构建）。等待后端恢复后，rev.3 对应的原生构建成功。
+- 结果：`https://totorolnet.github.io/product-opportunity-lab/2026-07-06/` = **200**，实测 `<title>Datum · Agent 验收回归哨兵</title>`、含 `id="root"`、JS 资源 200，页面正常上线。
+- 注：今日 transient 故障比历史更顽固（两次失败后第三次才成功），footer 因此保留 `rev.3` 标记，无功能影响。
+
 ## 最终结论
-- status = **PASS**，reason = **ok**。机会达门槛（24/25）、build 成功、必需产物齐全、核心流程闭合且经实测。
+- status = **PASS**，reason = **ok**。机会达门槛（24/25）、build 成功、必需产物齐全、核心流程闭合且经实测；Pages 在线体验已确认 200 上线。
