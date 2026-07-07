@@ -1,7 +1,10 @@
 # Lab Focus — 机会实验室的关注方向与评分规则
 
-本文件定义 product-opportunity-lab 每天做机会分析时的关注方向、评分维度和门槛。
-它是 `loops/daily-demo-loop.md` 的配置输入，Agent 每天执行时必须读取本文件。
+本文件定义 product-opportunity-lab **B2B Demo 主循环**的关注方向、评分维度和门槛。
+它是 `loops/daily-demo-loop.md` 的配置输入，由 **第一个 Cursor Automation** 在独立 Agent 运行中读取。
+
+2C 消费应用机会由**第二个 Automation** 处理，配置见 `config/lab-focus-2c.md` 与 `loops/daily-consumer-loop.md`。
+两轨不得在同一次 Agent 任务中同时加载（避免上下文注意力混杂）。
 
 ## Agent 角色设定（Persona）
 

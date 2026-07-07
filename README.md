@@ -17,6 +17,8 @@
 
 ## 每天产出
 
+B2B 主循环（Automation 1）：
+
 ```text
 daily/YYYY-MM-DD/
 ├── opportunity.md     # 客观机会分析（含不照抄声明）
@@ -25,7 +27,17 @@ daily/YYYY-MM-DD/
 ├── evaluation.md      # 自动体验 / 自测报告（PASS / PARTIAL / FAIL）
 ├── run-log.md         # 本次 loop 执行记录
 ├── status.json        # 机器可读状态
-└── source-report.md   # 本次使用的 radar 报告（provenance）
+└── source-report.md   # 本次使用的 radar B2B 报告（provenance）
+```
+
+2C 观察循环（Automation 2，读**同一份**合并日报的 Track B 节）：
+
+```text
+daily/YYYY-MM-DD/
+├── consumer-opportunity.md      # 2C 机会观察（无 Demo）
+├── consumer-run-log.md
+├── consumer-status.json
+└── consumer-source-report.md    # 合并日报存档（与 source-report 同文件，只读 Track B）
 ```
 
 ## 工作原理（无 cron 依赖）
@@ -37,16 +49,23 @@ daily/YYYY-MM-DD/
 5. `.github/workflows/sync-cursor-output.yml`（on push `cursor/**`）把 `daily/*` 同步进 `main` 并删分支。
 6. `.github/workflows/deploy-demo.yml`（on push `main`，paths `daily/**`）构建 Demo 并部署到 GitHub Pages。
 
-整条链路只有 Cursor Automation 一个定时器（时区由 Cursor 管），两个 workflow 都是事件触发，无 GitHub Actions cron。
+整条链路由 **两个** Cursor Automation 定时触发（B2B 08:00、2C 建议 08:30）；两个 workflow 都是事件触发，无 GitHub Actions cron。
 
 ## 本地验证命令
 
 ```bash
-# 1. 拉取最近 1 份 radar 报告到 inputs/product-hunt-reports/
+# 1. 拉取最近 1 份 radar B2B 报告
+python3 scripts/collect_recent_reports.py --days 1
+# 或显式：--track b2b
+
+# 1b. 2C 循环也用同一份合并报告（无需 --track）
 python3 scripts/collect_recent_reports.py --days 1
 
-# 2. 校验某天产物是否齐全（latest 自动解析最新日期目录）
+# 2. 校验某天 B2B 产物
 python3 scripts/validate_daily_output.py --date latest
+
+# 2b. 校验 2C 产物
+python3 scripts/validate_consumer_output.py --date latest
 
 # 3. 校验并构建某天的 Demo
 bash scripts/validate_demo.sh daily/latest/demo
@@ -67,4 +86,9 @@ https://totorolnet.github.io/product-opportunity-lab/YYYY-MM-DD/
 - `REQUIREMENTS.md` — 完整需求与约束
 - `loops/daily-demo-loop.md` — 每日循环的执行规范（Automation 的执行主体）
 - `config/lab-focus.md` — 关注方向、评分与门槛
-- `AUTOMATION.md` — Cursor Automation 配置说明
+- `AUTOMATION.md` — B2B Cursor Automation 配置
+- `AUTOMATION_CONSUMER.md` — 2C 独立 Automation 配置
+- `config/lab-focus.md` — B2B 关注方向、评分与门槛
+- `config/lab-focus-2c.md` — 2C 关注方向与门槛（独立 Agent）
+- `loops/daily-consumer-loop.md` — 2C 观察循环规范
+- `contrib/product-hunt-radar/` — radar 上游 2C 补丁（独立 Automation 用）

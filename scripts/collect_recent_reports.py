@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 """Collect the most recent product-hunt-radar report(s) into inputs/.
 
-By default it shallow-clones the PUBLIC radar repo at run time (no token needed),
-selects the N most recent `reports/YYYY-MM-DD.md` files, and copies them into
-`inputs/product-hunt-reports/`. You can also point `--source` at a local reports dir.
+Radar publishes a **single merged** daily file: reports/YYYY-MM-DD.md
+(Track A B2B + Track B 2C, merged by scripts/merge_daily_report.py on radar side).
 
-Never fails just because there are no reports: it prints a NOTE and returns 0,
-so the daily loop can degrade gracefully to `insufficient-input.md`.
+Lab B2B / 2C Automations both pull this same file; each loop reads its own section.
+
+Never fails when no reports: prints NOTE and returns 0.
 """
 
 from __future__ import annotations
@@ -26,7 +26,6 @@ DATE_RE = re.compile(r"^\d{4}-\d{2}-\d{2}$")
 
 
 def _date_reports(reports_dir: Path) -> list[Path]:
-    """Return report files named YYYY-MM-DD.md, sorted newest first."""
     if not reports_dir.is_dir():
         return []
     files = [p for p in reports_dir.glob("*.md") if DATE_RE.match(p.stem)]
@@ -34,7 +33,6 @@ def _date_reports(reports_dir: Path) -> list[Path]:
 
 
 def _resolve_source(source: str | None, repo: str) -> tuple[Path, tempfile.TemporaryDirectory | None]:
-    """Resolve a reports directory, cloning the public repo if needed."""
     if source:
         src = Path(source).expanduser().resolve()
         if not src.is_dir():
@@ -57,17 +55,16 @@ def _resolve_source(source: str | None, repo: str) -> tuple[Path, tempfile.Tempo
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Collect recent radar reports into inputs/.")
-    parser.add_argument("--source", help="Local path to a radar reports/ dir. If omitted, clone the public repo.")
-    parser.add_argument("--repo", default=DEFAULT_REPO, help="Radar repo URL to clone when --source is not given.")
-    parser.add_argument("--days", type=int, default=1, help="Number of most-recent reports to collect (default 1).")
-    parser.add_argument("--dest", default=str(DEFAULT_DEST), help="Destination dir for collected reports.")
+    parser = argparse.ArgumentParser(description="Collect recent merged radar reports into inputs/.")
+    parser.add_argument("--source", help="Local path to a radar reports/ dir.")
+    parser.add_argument("--repo", default=DEFAULT_REPO, help="Radar repo URL when --source omitted.")
+    parser.add_argument("--days", type=int, default=1, help="Number of most-recent reports (default 1).")
+    parser.add_argument("--dest", default=str(DEFAULT_DEST), help="Destination dir.")
     args = parser.parse_args()
 
     dest = Path(args.dest).expanduser().resolve()
     dest.mkdir(parents=True, exist_ok=True)
 
-    # Clear previously collected transient reports (keep .gitkeep).
     for old in dest.glob("*.md"):
         old.unlink()
 
@@ -77,7 +74,7 @@ def main() -> int:
         selected = reports[: max(args.days, 0)]
 
         if not selected:
-            print("[collect] NOTE: no reports found. The daily loop should write insufficient-input.md.")
+            print("[collect] NOTE: no reports found. Loop should write insufficient-input.")
             print(f"[collect] collected 0 report(s) into {dest}")
             return 0
 
@@ -85,9 +82,8 @@ def main() -> int:
             shutil.copy2(src_file, dest / src_file.name)
             print(f"[collect] + {src_file.name}")
 
-        latest = selected[0].name
-        print(f"[collect] collected {len(selected)} report(s) into {dest}")
-        print(f"[collect] latest = {latest}")
+        print(f"[collect] collected {len(selected)} merged report(s) into {dest}")
+        print(f"[collect] latest = {selected[0].name}")
         return 0
     finally:
         if tmp is not None:

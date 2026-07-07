@@ -1,11 +1,11 @@
 # Cursor Automation 配置
 
-本项目的每日循环由一个 Cursor Automation 定时触发。整条链路只有这一个定时器
-（时区由 Cursor 管理）；两个 GitHub workflow 都是事件触发，无 GitHub Actions cron。
+本项目的 B2B 每日循环由 **第一个** Cursor Automation 定时触发；2C 观察循环为 **第二个** Automation（见 `AUTOMATION_CONSUMER.md`）。  
+两轨各自独立 Agent 运行，不得合并到同一次指令。GitHub workflow 仍为事件触发，无 Actions cron。
 
-## 一、创建 Automation
+## 一、创建 Automation（B2B Demo 主循环）
 
-在 Cursor 中新建 Automation：
+在 Cursor 中新建 **第一个** Automation（2C 观察循环见 `AUTOMATION_CONSUMER.md`，须单独建）：
 
 ```text
 Name:       Daily Product Opportunity Demo

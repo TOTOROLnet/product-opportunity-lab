@@ -23,12 +23,18 @@
 
 ## 3. 输入范围
 
-- 读取最近 **1 份** product-hunt-radar 报告（`--days 1`）。
-- 来源：public 仓库 `TOTOROLnet/product-hunt-radar` 的 `reports/YYYY-MM-DD.md`。
-- 运行时由 `scripts/collect_recent_reports.py` 自拉取，无需 token、无需预先同步。
-- 若完全没有报告：生成 `daily/YYYY-MM-DD/insufficient-input.md` 说明无法分析，正常结束，不报错。
+### 3.1 B2B 主循环（Automation 1）
 
-### 时序提醒
+- 读取最近 **1 份** 合并日报 `reports/YYYY-MM-DD.md`（`collect_recent_reports.py --days 1`）。
+- 只使用其中 **Track A** 节做机会分析（旧版无分节则整份视为 B2B，向后兼容）。
+
+### 3.2 2C 观察循环（Automation 2）
+
+- 拉取**同一份**合并日报，只读 **Track B** 节。
+- 独立 Agent 运行；禁止读取 B2B 产出文件。
+- 无有效 Track B 时写 `consumer-insufficient-input.md`。
+
+### 时序提醒（lab vs radar）
 
 lab 每天读"最近 1 份可用报告"。若 lab 与 radar 同在 08:00，lab 读到的通常是**昨天**那份
 （今天的还没生成），这符合"参考过去一天"。若要用当天最新报告，把 lab 的 Automation 时间设得比 radar 晚一些。
@@ -127,16 +133,21 @@ product-opportunity-lab/
 ├── AUTOMATION.md
 ├── .gitignore
 ├── config/lab-focus.md
-├── inputs/product-hunt-reports/     # 运行时填充（gitignored）
+├── config/lab-focus-2c.md
+├── inputs/product-hunt-reports/     # 合并日报，运行时填充
 ├── loops/daily-demo-loop.md
+├── loops/daily-consumer-loop.md
 ├── scripts/
 │   ├── collect_recent_reports.py
 │   ├── validate_daily_output.py
+│   ├── validate_consumer_output.py
 │   └── validate_demo.sh
 ├── templates/
 │   ├── opportunity-template.md
+│   ├── consumer-opportunity-template.md
 │   ├── demo-spec-template.md
 │   └── evaluation-template.md
+├── contrib/product-hunt-radar/      # radar 上游 2C 补丁
 ├── daily/
 └── .github/workflows/
     ├── sync-cursor-output.yml

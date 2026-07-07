@@ -36,6 +36,8 @@
    ```
 3. 计算今天日期 `DATE`（北京时间，格式 `YYYY-MM-DD`），创建输出目录 `daily/DATE/`。
 4. 把本次使用的报告复制到 `daily/DATE/source-report.md`（provenance）。
+   - 若报告含 `## Track A：`，**只基于 Track A 节**做 B2B 机会分析。
+   - 若为旧版无分节报告，将整份视为 B2B 输入（向后兼容）。
 5. **无报告分支**：若 `inputs/product-hunt-reports/` 为空，写 `daily/DATE/insufficient-input.md`
    说明"无可用报告，无法分析"，写 `status.json`（status=`PARTIAL`，reason=`no-input`），正常结束。
 
