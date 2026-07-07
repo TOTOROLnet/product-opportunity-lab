@@ -1,55 +1,57 @@
-# Concord — 多 Agent 协作失调诊断器（Coordination-Failure Detective）
+# Reverso — Agent 动作可逆性与回滚规划器（Demo）
 
-> 纯前端 mock 概念 Demo。吃事件驱动多 Agent 运行时的**运行事件流**，用一组**关系性 + 时间性检测器**自动判出协作反模式（活锁 / 重试风暴 / 无主任务 / 重复写入冲突 / 空转），给出**因果链 + 浪费成本 + 病因 + 修复处方**与协作健康 verdict（HEALTHY / DEGRADED / STUCK）。
+> product-opportunity-lab · 2026-07-07 · 纯前端模拟体验 Demo（Vite + React + TypeScript）
 
-信号来源：product-hunt-radar `2026-07-07` 报告（Mozaik / Edgee / CodeMote，"Agent 运行控制面分层"趋势）。报告为参考资料；Concord 的切入点（协作失调**诊断层**）是独立判断，不复刻报告中的任一产品，也不是本实验室既有产出（Fusebox/Attestor/Contour/Datum）的克隆——详见根目录 `../opportunity.md`。
+整条 agent 栈都在优化「把 run 往前推」（更便宜的长上下文、失败后重试、路由 fallback、手机一键批准）。
+**Reverso 是那层没人做的「倒退路径」**：为一次 agent run 里每个改状态的动作，算出
+**能不能退、怎么退、退到哪一步就退不回来**。
 
-## 它解决什么
+这是一个**模拟体验 + 价值可视化**的纯前端 Demo：不真正执行或回滚任何动作，数据全部 mock，
+不接后端 / 数据库 / 支付 / 外部 API / 私钥。
 
-编排式（DAG）多 Agent 系统故障可定位；事件驱动 / 自组织系统的故障是**关系性、时间性、涌现的**——每个 agent 单看都"在正常工作"（在重试、在等待、在发消息），系统级却已经活锁 / 空转 / 任务无人接 / 抢写同一文件，token 和墙钟时间在悄悄烧。Concord 把"多 Agent 协作反模式"变成一等**检测对象**，把"看事件"升级为"判病 + 开处方"。
+## 它做什么
 
-## 怎么用（Demo）
+- **可逆性分级**：对每个动作（写文件 / git / shell / DB / HTTP / 发消息 / 部署 / 扣款 / 云资源）
+  判定 `REVERSIBLE`（可逆）/ `COMPENSABLE`（有代价可补偿）/ `IRREVERSIBLE`（不可逆）。
+- **回滚手册**：给出具体逆操作 / 补偿步骤（如 `git revert`、从快照恢复、down migration、退款调用；
+  发出去的邮件=无法撤回）。
+- **不可逆临界点（point of no return）**：在时间轴上标出「过此线不可逆」。
+- **run 级 verdict**：`SAFE` / `CHECKPOINT` / `STOP-BEFORE-IRREVERSIBLE`。
+- **Reverso 保护网**：模拟"临界动作前自动打快照/备份"，把 `IRREVERSIBLE` 实时翻成 `COMPENSABLE`。
 
-1. 进入「诊断台」，顶部是协作健康 **verdict** + 病灶数 / 浪费 token / 受影响时长。
-2. 左侧选运行场景（活锁 / 重试风暴 / 无主任务 / 写入冲突 / 健康对照）。
-3. 点「▶ 播放」，中间**交互图**随事件点亮、病灶节点/边变红，**时间轴**上事件逐条流入并打病灶标记。
-4. 右侧**诊断面板**实时列出每个反模式的因果链、浪费成本、病因与修复处方。
-5. 顶部切换 **Concord 诊断视图 / 原始事件日志**，直观对比 before/after。
-6. 「工作原理」页解释 5 类检测器、为何不是 trace/APM、定位与边界。
+所有判定都是对动作数据的**确定性规则**（见 `src/logic/analyze.ts`），**不是按场景写死的结论**——
+切换场景或打开保护网会实时重算。
 
-## 本地运行
+## 页面
+
+1. **Plan Analyzer**：verdict 头部 + 场景选择 + 保护网开关 + 动作时间轴（含临界线）+ 动作详情（回滚手册）。
+2. **Before / After**：左"运行时/日志原样" vs 右"Reverso 标注"，直观展示增量。
+3. **How it works**：可逆性分类法、确定性规则表、forward-vs-backward 论点、与审批/协作诊断层的区隔。
+
+## 运行
+
+需要 Node 18+（建议 Node 20/22）。
 
 ```bash
-npm install
-npm run dev      # 本地开发（默认 http://localhost:5173）
-npm run build    # 产物输出到 dist/
-npm run preview  # 预览 build 产物
+npm install      # 安装依赖
+npm run dev      # 本地开发，默认 http://localhost:5173
+npm run build    # 类型检查 + 生产构建，产物在 dist/
+npm run preview  # 预览构建产物
 ```
-
-## 技术栈与约定
-
-- **Vite + React + TypeScript**，无额外重依赖（交互图用纯 SVG）。
-- `vite.config.ts` 设 `base: './'`，保证部署到任意 GitHub Pages 子目录都能正确加载资源。
-- 检测逻辑在 `src/logic/detectors.ts`，是对事件流的**确定性关系/时间分析**（不是硬编码 verdict），随时间轴切片增量运行。
 
 ## 目录结构
 
 ```
 src/
-  main.tsx                 # 入口
-  App.tsx                  # 诊断台 + 播放逻辑 + 页面/视图切换
-  types.ts                 # RunEvent / Detection / DiagnosisResult 等类型
-  data/scenarios.ts        # 5 个 mock 运行场景（事件流）
-  logic/detectors.ts       # 5 类协作反模式检测器 + diagnose() 主入口
-  components/
-    VerdictHeader.tsx       # 协作健康 verdict + 指标
-    InteractionGraph.tsx    # SVG Agent 交互图（随时间点亮，病灶高亮）
-    Timeline.tsx            # 时间轴播放/拖动 + 病灶标记
-    DiagnosisPanel.tsx      # 诊断面板（after）
-    EventLog.tsx            # 原始事件日志（before）
-    HowItWorks.tsx          # 工作原理 / 定位边界 / 不照抄声明
+  App.tsx                 # 页面编排（3 个 Tab + 场景选择 + 保护网开关）
+  types.ts                # 领域模型（AgentAction / Diagnosis / RunVerdict …）
+  logic/analyze.ts        # 确定性判定引擎（可逆性 + 回滚手册 + 临界点 + verdict + 保护网）
+  data/scenarios.ts       # 5 个 mock agent-run 动作计划
+  data/labels.ts          # 动作 / 可逆性的显示标签与配色
+  components/             # RunVerdictHeader / Timeline / ActionDetail / BeforeAfter / HowItWorks
 ```
 
-## 明确不做
+## 构建配置
 
-不做登录 / 用户系统，不接数据库 / 支付 / 外部私钥 / 真实 API / 真实运行时。全部事件流为 mock。真实产品需要事件规范化 + 稳健去噪（避免假阳性），此处用固定阈值示意。
+`vite.config.ts` 设 `base: './'`（相对路径），保证部署到任意 GitHub Pages 子目录
+（如 `/product-opportunity-lab/2026-07-07/`）都能正确加载资源。

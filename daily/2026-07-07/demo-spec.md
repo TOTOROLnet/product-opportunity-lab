@@ -2,72 +2,68 @@
 
 ## 1. Demo 名称
 
-**Concord — 多 Agent 协作失调诊断器（Coordination-Failure Detective）**
+**Reverso — Agent 动作可逆性与回滚规划器（Reversibility & Rollback Planner）**
 
 ## 2. 一句话定位
 
-一层中立的诊断层：吃事件驱动多 Agent 运行时的运行事件流，自动判出"协作反模式"（活锁 / 重试风暴 / 无主任务 / 重复写入冲突 / 空转），给出因果链、浪费成本与修复处方。
+整条 agent 栈都在优化「把 run 往前推」，Reverso 是那层没人做的「倒退路径」：为 run 里每个改状态的动作算出**能不能退、怎么退、退到哪一步就退不回来**。
 
 ## 3. 目标用户
 
-正在用 Mozaik / AutoGen / CrewAI / LangGraph 等构建**并行、自组织多 Agent 协作**的工程团队；他们的 run"看起来在动、实际卡死/空转烧钱"，单个 agent 日志查不出问题。
+让 agent 在真实环境自主执行（改代码库、跑 DB 迁移、发消息、部署、动云资源）的工程团队与 agent 平台方——越自主、run 越长，越怕「没盯着时它做了件收不回的事」。
 
 ## 4. 使用场景
 
-一次多 Agent run 跑了很久还没出结果，token 花了一堆。把这次 run 的事件流喂给 Concord，30 秒内看出：是 planner 和 coder 在 ping-pong 活锁 / 是 reviewer 的任务无人接（黑洞）/ 是两个 coder 抢改同一文件，以及这烧掉了多少 token，怎么修。
+一个 agent run 产出一串改状态动作（计划或已执行）。用户在 Reverso 里选一个真实感场景，就能看到：每个动作的可逆性、run 的不可逆临界点、每步的具体回滚手册，以及打开「保护网」后 verdict 如何实时变化——3 分钟看懂「哪些动作收不回、真出事怎么退」。
 
 ## 5. Demo 策略分型（重要）
 
-- 本机会属于：☑ 抽象 / CLI / API / 基础设施类产品（运行时诊断层，无 GUI 原生形态）
-- 采用的演示方式：纯前端**"模拟体验 + 价值可视化"**，组合三种形式：
-  - **网页版模拟运行回放**：脚本化重放一次多 Agent run 的事件流（时间轴可播放/暂停/拖动）。
-  - **资源/结构视图**：把抽象的"多 Agent 协作"可视化为**交互图**（participant 节点 + handoff/message 边），随时间点亮，病灶红线高亮。
-  - **before / after 对比**：同一段事件，切换"原始事件洪流（看不懂）"vs"Concord 诊断（一眼病因 + 处方）"。
-- 演示的是**我们分析出的创新切入点**（协作反模式诊断层），不是 Mozaik（运行时）的克隆。
-- **关键**：检测逻辑是对事件流的**真实确定性分析**（在 `src/logic/detectors.ts` 中实现，不是硬编码 verdict），随时间轴回放增量触发，保证"不是空壳"。
+- 本机会属于：☑ 抽象 / CLI / API / 基础设施类产品（可逆性/回滚是一层横切能力，非可视化 App）
+- 采用的演示方式：纯前端「**模拟体验 + 价值可视化**」——
+  - **模拟动作流回放**：把一次 agent run 的改状态动作按时间轴呈现；
+  - **资源/结构视图**：每个动作打上可逆性徽章 + 爆炸半径 + 回滚手册；
+  - **before / after 对比**：左＝运行时/日志原样（只有"发生了什么"），右＝Reverso 标注（"能不能退、怎么退、临界点在哪"）；
+  - **交互开关**：「Reverso 保护网」开关，模拟"临界动作前自动打快照/备份"，实时把 IRREVERSIBLE 翻成 COMPENSABLE 并刷新 verdict。
+- 演示的是**我们分析出的创新切入点**（动作级可逆性 + 回滚手册 + 不可逆临界点），不是任何被参考产品（Mozaik / Edgee / Nixmac / CodeMote）的克隆。
 
-## 6. 核心流程
+## 6. 核心流程（3 分钟内可完成）
 
-（用户从进入到"看懂价值"的主路径，3 分钟内可完成）
+1. 进入首屏：顶部是 run 级 **verdict 徽章**（SAFE / CHECKPOINT / STOP）+ 一句话结论 + 可逆/可补偿/不可逆动作计数 + 不可逆临界点位置。
+2. 在场景选择器里切换 5 个真实感场景（本地重构 / 发布上线 / 数据库清理 / 客户退款自动化 / 清理云资源省成本），时间轴与 verdict 随之变化。
+3. 在时间轴上看每个动作的可逆性徽章；**不可逆临界线**把"临界点之后"的动作标红。
+4. 点任一动作 → 右侧详情：动作类型/目标/发起 agent/参数、可逆性分级、**逐步回滚手册**、爆炸半径、撤销代价（时间/金钱）、一句话病因。
+5. 切到 **Before / After** 页看增量：同一串动作，运行时/日志只给你原始列表；Reverso 给你可逆性 + 回滚 + 临界点。
+6. 打开 **「保护网」** 开关：对可"快照后可补偿"的动作模拟自动备份，观察 IRREVERSIBLE→COMPENSABLE、STOP→CHECKPOINT 的实时翻转——直观展示产品价值。
+7. 切到 **How it works** 页看可逆性分类法、确定性规则、以及与 Fusebox（审批）/ Concord（协作诊断）的定位区隔。
 
-1. 进入 Console，首屏顶部是**协作健康 verdict**（HEALTHY / DEGRADED / STUCK）+ 检测到的病灶数 / 浪费 token / 浪费墙钟时间。
-2. 左侧选择场景（活锁 ping-pong / 重试风暴 / 无主任务黑洞 / 重复写入冲突 / 健康 run）。
-3. 点"播放"，中间的**交互图**随事件流点亮，**时间轴**上事件逐条流入；当某检测器触发，时间轴出现病灶标记、图上相关节点/边变红。
-4. 右侧**诊断面板**列出检测到的反模式：每条含 因果事件链、涉及的 agent、浪费的 token/时间、一句话病因、**修复处方**。
-5. 顶部切换 **"Concord 视图 / 原始事件日志"**，直观感受 before/after：原始日志是一长串看不懂的事件，Concord 视图是一眼病因 + 处方。
+## 7. 页面结构（<= 3 个主要页面 / Tab）
 
-## 7. 页面结构（<= 3 个主要页面）
-
-- 页面 1（Console，主）：verdict 头 + 场景选择 + 交互图 + 时间轴回放 + 诊断面板 + before/after 切换。
-- 页面 2（How it works）：讲清"为什么涌现式 ≠ 编排式故障"、6 类检测器原理、输入模型（任意事件流）、定位（中立诊断层，不做运行时/不做闸门）、不照抄声明。
-- （无第 3 页；before/after 的"原始日志"作为 Console 内的切换视图，不单列页面。）
+- 页面 1：**Plan Analyzer**（主）——verdict header + 场景选择 + 保护网开关 + 动作时间轴（含不可逆临界线）+ 动作详情（回滚手册）。
+- 页面 2：**Before / After**——左"运行时原样" vs 右"Reverso 标注"的对照。
+- 页面 3：**How it works**——可逆性分类法、确定性规则表、forward-vs-backward 论点、与既有控制面（审批/协作诊断）的区隔。
 
 ## 8. 关键交互
 
-- 时间轴 **播放 / 暂停 / 拖动**：`currentTime` 状态驱动，只对 `t <= currentTime` 的事件切片跑检测器，检测结果随时间**增量出现**。
-- 交互图：SVG 圆形布局，participant 为节点（按角色着色、按最近活动脉冲），handoff/message 为边；触发病灶的节点/边高亮红色。
-- 诊断卡点击：高亮其因果链在时间轴上对应的事件。
-- Console 顶部 toggle：Concord 诊断视图 ⇄ 原始事件日志（before/after）。
+- 场景切换：即时重算全 run 诊断与 verdict。
+- 动作选中：时间轴 ↔ 详情面板联动。
+- 保护网开关：实时改变输入 flag（snapshot/backup=true）并重算，演示 verdict 翻转。
+- 不可逆临界点：在时间轴上以红色临界线标出「过此线不可逆」。
 
 ## 9. 使用的 mock 数据
 
-- 全部为 mock，**不接真实运行时 / 后端 / 外部 API**。
-- `src/data/scenarios.ts`：每个场景含
-  - `participants`：{ id, name, role(planner/coder/reviewer/observer/tool), avatarHue }
-  - `events`：有序数组 { id, t(ms), type(message|function_call|error|state|handoff|assign), from, to?, resource?, tokens, summary }
-  - `expected`：人读说明（供 How it works 解释；verdict 与检测由代码实时算出，非取自此字段）
-- 5 个场景：`livelock`（planner↔coder ping-pong 空转）、`retry-storm`（coder 对同一工具反复失败重试升级）、`orphaned`（reviewer 任务被派后无主超时）、`collision`（两个 coder 抢写同一文件）、`healthy`（正常完成，作为对照，verdict=HEALTHY）。
+- `src/data/scenarios.ts`：5 个手写场景，每个是一串 `AgentAction`（含 `kind` / `target` / `actor` / `params` / 上下文 flag 如 `snapshot`/`shared`/`hasBackup`）。全部为 mock，不接真实运行时/后端/外部 API。
+- 判定**不写死结论**：由 `src/logic/analyze.ts` 的确定性规则对动作数据实时计算 `Diagnosis` 与 `RunVerdict`。
 
 ## 10. 明确不做什么
 
 - 不做登录 / 用户系统
 - 不接数据库 / 支付 / 外部私钥 / 真实 API / 真实运行时
+- 不真正执行或回滚任何动作（Demo 只做规划与可视化）
 - 不做生产级后端
-- 不接真实 Mozaik / AutoGen，事件流全部为脚本化 mock
-- 不做真实的事件规范化 / 去噪引擎（真实产品的重活，Demo 用固定阈值示意）
+- 不超过 3 个主要页面；数据全部 mock
 
 ## 11. 成功体验标准
 
-- 用户 3 分钟内能说出"它解决什么问题（多 Agent 协作失调不可见）、怎么用（喂事件流、看诊断）、增量在哪（不是 trace 查看器，而是判病 + 开处方 + 算浪费成本）"。
-- 至少能在 3 个病态场景里看到不同的病灶被正确判出，并对照"健康 run"确认不误报。
-- before/after 切换让人直观感到"原始日志看不懂 → Concord 一眼看懂"。
+- 用户 3 分钟内能说出：Reverso「解决什么（agent 自主执行的不可逆风险）/ 怎么用（选场景→看可逆性与回滚手册→保护网）/ 增量在哪（整条栈只做 forward path，它做 backward path）」。
+- verdict 与逐动作诊断是**规则算出来的**（切场景/开关会实时变），不是硬编码。
+- 一眼能认出它**不是** Mozaik/Edgee/Nixmac/CodeMote 的克隆，也不是 Fusebox 审批或 Concord 协作诊断的重复。

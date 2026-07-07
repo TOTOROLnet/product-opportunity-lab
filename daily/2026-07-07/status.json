@@ -4,14 +4,14 @@
   "reason": "ok",
   "source_report": "2026-07-07.md",
   "opportunity": {
-    "selected": "Concord — 多 Agent 协作失调诊断器（Coordination-Failure Detective）",
-    "score": 24,
+    "selected": "Reverso — Agent 动作可逆性与回滚规划器（Reversibility & Rollback Planner）",
+    "score": 23,
     "threshold": 16,
     "passed_threshold": true
   },
   "demo": {
     "built": true,
-    "build_attempts": 2,
+    "build_attempts": 1,
     "tech": "vite-react-ts",
     "strategy": "simulation"
   },
@@ -23,5 +23,5 @@
     "demo": true
   },
   "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-07/",
-  "generated_at": "2026-07-07T09:19:22+08:00"
+  "generated_at": "2026-07-07T16:20:00+08:00"
 }

@@ -1,188 +1,128 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
-import { SCENARIOS, maxT } from './data/scenarios';
-import { diagnose } from './logic/detectors';
-import { VerdictHeader } from './components/VerdictHeader';
-import { InteractionGraph } from './components/InteractionGraph';
-import { Timeline } from './components/Timeline';
-import { DiagnosisPanel } from './components/DiagnosisPanel';
-import { EventLog } from './components/EventLog';
-import { HowItWorks } from './components/HowItWorks';
+import { useMemo, useState } from 'react'
+import { scenarios } from './data/scenarios'
+import { analyzePlan, applySafetyNet } from './logic/analyze'
+import { RunVerdictHeader } from './components/RunVerdictHeader'
+import { Timeline } from './components/Timeline'
+import { ActionDetail } from './components/ActionDetail'
+import { BeforeAfter } from './components/BeforeAfter'
+import { HowItWorks } from './components/HowItWorks'
 
-type Page = 'console' | 'how';
-type View = 'concord' | 'raw';
-
-const STEP_MS = 200; // 每帧推进的模拟时间
-const FRAME_MS = 90; // 播放帧间隔
+type Tab = 'analyzer' | 'ba' | 'how'
 
 export default function App() {
-  const [page, setPage] = useState<Page>('console');
-  const [view, setView] = useState<View>('concord');
-  const [scenarioId, setScenarioId] = useState(SCENARIOS[0].id);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const timer = useRef<number | null>(null);
+  const [scenarioId, setScenarioId] = useState(scenarios[0].id)
+  const [tab, setTab] = useState<Tab>('analyzer')
+  const [safetyNet, setSafetyNet] = useState(false)
+  const [selectedId, setSelectedId] = useState<string | null>(null)
 
-  const scenario = useMemo(
-    () => SCENARIOS.find((s) => s.id === scenarioId) ?? SCENARIOS[0],
-    [scenarioId],
-  );
-  const maxTime = useMemo(() => maxT(scenario), [scenario]);
+  const scenario = scenarios.find((s) => s.id === scenarioId)!
 
-  // 切换场景：从头开始播放
-  useEffect(() => {
-    setCurrentTime(0);
-    setPlaying(true);
-  }, [scenarioId]);
+  const actions = useMemo(
+    () => (safetyNet ? applySafetyNet(scenario.actions) : scenario.actions),
+    [scenario, safetyNet],
+  )
 
-  // 播放循环
-  useEffect(() => {
-    if (!playing) return;
-    timer.current = window.setInterval(() => {
-      setCurrentTime((t) => {
-        const next = t + STEP_MS;
-        if (next >= maxTime) {
-          setPlaying(false);
-          return maxTime;
-        }
-        return next;
-      });
-    }, FRAME_MS);
-    return () => {
-      if (timer.current) window.clearInterval(timer.current);
-    };
-  }, [playing, maxTime]);
+  const { diagnoses, verdict } = useMemo(() => analyzePlan(actions), [actions])
 
-  const activeEvents = useMemo(
-    () => scenario.events.filter((e) => e.t <= currentTime),
-    [scenario, currentTime],
-  );
+  const selectedAction = actions.find((a) => a.id === selectedId) ?? null
+  const selectedDiag = diagnoses.find((d) => d.actionId === selectedId) ?? null
 
-  const result = useMemo(
-    () => diagnose(activeEvents, scenario.participants),
-    [activeEvents, scenario.participants],
-  );
-
-  const verdictPill = (id: string) => {
-    // 用完整事件流预判 verdict，给场景卡加个状态角标
-    const s = SCENARIOS.find((x) => x.id === id);
-    if (!s) return null;
-    const full = diagnose(s.events, s.participants);
-    const cls =
-      full.verdict === 'STUCK' ? 'crit' : full.verdict === 'DEGRADED' ? 'warn' : 'ok';
-    return <span className={`pill ${cls}`}>{full.verdict}</span>;
-  };
+  function pickScenario(id: string) {
+    setScenarioId(id)
+    setSelectedId(null)
+  }
 
   return (
     <div className="app">
-      <div className="topbar">
+      <header className="topbar">
         <div className="brand">
-          <h1>
-            Concord<span className="dot">.</span>
-          </h1>
-          <span className="tag">多 Agent 协作失调诊断器 · Coordination-Failure Detective</span>
+          <span className="logo">↺</span>
+          <div>
+            <div className="brand-name">Reverso</div>
+            <div className="brand-tag">Agent 动作可逆性与回滚规划器 · the backward path</div>
+          </div>
         </div>
-        <div className="nav">
-          <button
-            className={page === 'console' ? 'active' : ''}
-            onClick={() => setPage('console')}
-          >
-            诊断台
+        <nav className="tabs">
+          <button className={tab === 'analyzer' ? 'active' : ''} onClick={() => setTab('analyzer')}>
+            Plan Analyzer
           </button>
-          <button
-            className={page === 'how' ? 'active' : ''}
-            onClick={() => setPage('how')}
-          >
-            工作原理
+          <button className={tab === 'ba' ? 'active' : ''} onClick={() => setTab('ba')}>
+            Before / After
           </button>
+          <button className={tab === 'how' ? 'active' : ''} onClick={() => setTab('how')}>
+            How it works
+          </button>
+        </nav>
+      </header>
+
+      {tab !== 'how' && (
+        <div className="controls">
+          <div className="scenario-picker">
+            {scenarios.map((s) => (
+              <button
+                key={s.id}
+                className={`chip${s.id === scenarioId ? ' chip-active' : ''}`}
+                onClick={() => pickScenario(s.id)}
+                title={s.summary}
+              >
+                {s.name}
+              </button>
+            ))}
+          </div>
+          <label className={`safety-toggle${safetyNet ? ' on' : ''}`}>
+            <input
+              type="checkbox"
+              checked={safetyNet}
+              onChange={(e) => setSafetyNet(e.target.checked)}
+            />
+            <span className="switch" />
+            <span className="safety-label">
+              Reverso 保护网
+              <small>临界动作前自动快照 / 备份</small>
+            </span>
+          </label>
         </div>
-      </div>
-
-      {page === 'how' ? (
-        <HowItWorks />
-      ) : (
-        <>
-          <p className="lead">
-            事件驱动 / 自组织多 Agent 团队的故障是<b>关系性、时间性、涌现的</b>：每个 agent 单看都"在正常工作"，
-            系统级却已卡死或空烧 token。Concord 吃运行事件流，用确定性检测器<b>自动判病并开处方</b>。
-            选一个场景 → 播放时间轴 → 看 Concord 实时诊断。
-          </p>
-
-          <VerdictHeader result={result} />
-
-          <div className="viewtoggle">
-            <button
-              className={view === 'concord' ? 'active' : ''}
-              onClick={() => setView('concord')}
-            >
-              Concord 诊断视图（after）
-            </button>
-            <button className={view === 'raw' ? 'active' : ''} onClick={() => setView('raw')}>
-              原始事件日志（before）
-            </button>
-          </div>
-
-          <div className="grid">
-            <div className="card">
-              <h3>选择运行场景</h3>
-              {SCENARIOS.map((s) => (
-                <button
-                  key={s.id}
-                  className={`scenario ${s.id === scenarioId ? 'active' : ''}`}
-                  onClick={() => setScenarioId(s.id)}
-                >
-                  <div className="s-name">
-                    {s.name} {verdictPill(s.id)}
-                  </div>
-                  <div className="s-blurb">{s.blurb}</div>
-                </button>
-              ))}
-            </div>
-
-            <div>
-              <InteractionGraph
-                participants={scenario.participants}
-                activeEvents={activeEvents}
-                result={result}
-              />
-              <Timeline
-                events={scenario.events}
-                currentTime={currentTime}
-                maxTime={maxTime}
-                playing={playing}
-                result={result}
-                onTogglePlay={() => {
-                  if (currentTime >= maxTime) setCurrentTime(0);
-                  setPlaying((p) => !p);
-                }}
-                onSeek={(t) => {
-                  setPlaying(false);
-                  setCurrentTime(t);
-                }}
-                onRestart={() => {
-                  setCurrentTime(0);
-                  setPlaying(true);
-                }}
-              />
-            </div>
-
-            {view === 'concord' ? (
-              <DiagnosisPanel result={result} />
-            ) : (
-              <EventLog
-                events={activeEvents}
-                participants={scenario.participants}
-                result={result}
-              />
-            )}
-          </div>
-
-          <div className="footer">
-            纯前端 mock Demo（Vite + React + TS，<code>base:'./'</code>）。检测逻辑在{' '}
-            <code>src/logic/detectors.ts</code> 中真实实现，随时间轴切片增量运行——不是硬编码 verdict。
-            不接后端 / 数据库 / 外部 API / 登录。信号来源：product-hunt-radar 2026-07-07。
-          </div>
-        </>
       )}
+
+      <main className="content">
+        {tab === 'analyzer' && (
+          <>
+            <p className="scenario-summary">{scenario.summary}</p>
+            <RunVerdictHeader verdict={verdict} />
+            <div className="analyzer-grid">
+              <Timeline
+                actions={actions}
+                diagnoses={diagnoses}
+                selectedId={selectedId}
+                pointOfNoReturnId={verdict.pointOfNoReturnId}
+                onSelect={setSelectedId}
+              />
+              <ActionDetail
+                action={selectedAction}
+                diagnosis={selectedDiag}
+                isPointOfNoReturn={
+                  selectedId != null && selectedId === verdict.pointOfNoReturnId
+                }
+              />
+            </div>
+          </>
+        )}
+
+        {tab === 'ba' && (
+          <>
+            <p className="scenario-summary">{scenario.summary}</p>
+            <RunVerdictHeader verdict={verdict} />
+            <BeforeAfter actions={actions} diagnoses={diagnoses} />
+          </>
+        )}
+
+        {tab === 'how' && <HowItWorks />}
+      </main>
+
+      <footer className="footer">
+        Reverso · 纯前端模拟 Demo（Vite + React + TS）· 数据全 mock，不执行真实动作 ·
+        product-opportunity-lab 2026-07-07 · rev.1
+      </footer>
     </div>
-  );
+  )
 }
