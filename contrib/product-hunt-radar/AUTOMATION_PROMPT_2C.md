@@ -1,6 +1,6 @@
-每天执行一次 Product Hunt **Track B（2C 消费应用）** 监测。与 Track A（B2B）是**独立 Agent 任务**；本任务只写 partial，由脚本合并进**同一份** `reports/YYYY-MM-DD.md`。
+每天执行一次 Product Hunt **Track B（2C 消费应用）** 监测。与 Track A（B2B）是**独立 Agent 任务**；本任务**只写 partial**，合并由 CI（`auto-merge-cursor.yml`）在 main 上完成，最终进入**同一份** `reports/YYYY-MM-DD.md`。
 
-**禁止**读取 `reports/partials/b2b-*.md`、`config/focus.md` 或 Track A 正文。
+**禁止**读取或修改 `reports/partials/b2b-*.md`、`config/focus.md` 或 Track A 正文。
 
 执行步骤：
 
@@ -12,12 +12,14 @@
 6. Track B 按 18 分制评分（见 `focus-2c.md`）。
 7. 将 **Track B 全部正文** 写入：
 
-   `reports/partials/consumer-YYYY-MM-DD.md`
+   `reports/partials/consumer-YYYY-MM-DD.md`（北京时间日期）
 
-   **禁止**写入 Track A 内容。禁止直接写 `reports/YYYY-MM-DD.md`。
+   **禁止**写入 Track A 内容。**禁止**直接写 `reports/YYYY-MM-DD.md`。  
+   **不要**在本地运行 merge 脚本——合并只在 CI 的 main 上发生。
 
-8. 运行：`python3 scripts/merge_daily_report.py --date YYYY-MM-DD`
-9. 最终回复：简版摘要 + partial 路径 + 合并后的 `reports/YYYY-MM-DD.md` 路径。
+8. 把改动提交到 Cursor 工作分支（`cursor/product-hunt-*`）并 push。CI 会同步 partial → 在 main 跑 merge → 更新 `reports/YYYY-MM-DD.md` 的 Track B → 删分支。
+9. **不要创建 Pull Request**。
+10. 最终回复：简版摘要 + partial 路径。
 
 Track B partial 结构（无需写 Track B 标题，合并脚本会自动包裹）：
 

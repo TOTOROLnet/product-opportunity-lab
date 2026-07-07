@@ -1,0 +1,75 @@
+name: Sync Cursor report to main
+
+on:
+  push:
+    branches:
+      - 'cursor/product-hunt-*'
+
+permissions:
+  contents: write
+
+# Serialize runs so B2B and 2C pushes merge sequentially onto an up-to-date main.
+concurrency:
+  group: sync-report-main
+  cancel-in-progress: false
+
+jobs:
+  sync-report:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Cursor branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          path: cursor-src
+
+      - name: Checkout main branch
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: main-repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      # Accumulate this branch's partials onto main (b2b-* and consumer-* coexist;
+      # same-name files overwrite, so re-runs are idempotent).
+      - name: Sync partials into main
+        run: |
+          mkdir -p main-repo/reports/partials
+          cp -R cursor-src/reports/partials/*.md main-repo/reports/partials/ 2>/dev/null || true
+
+      # Deterministic merge on main: every date that has any partial is rebuilt,
+      # so whichever track (B2B/2C) ran second completes the other track's section.
+      - name: Merge partials into daily reports
+        run: |
+          cd main-repo
+          python3 scripts/merge_daily_report.py --all
+
+      - name: Commit and push to main
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          cd main-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add reports
+
+          if git diff --cached --quiet; then
+            echo "No report changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Merge Product Hunt partials from $BRANCH"
+          git push origin main
+
+      - name: Delete Cursor branch
+        env:
+          BRANCH: ${{ github.ref_name }}
+        run: |
+          cd main-repo
+          git push origin --delete "$BRANCH" || true

@@ -101,10 +101,30 @@ def merge(date: str) -> Path:
     return out
 
 
+def all_partial_dates() -> list[str]:
+    dates: set[str] = set()
+    for p in PARTIALS.glob("*.md"):
+        m = re.match(r"^(?:b2b|consumer)-(\d{4}-\d{2}-\d{2})$", p.stem)
+        if m:
+            dates.add(m.group(1))
+    return sorted(dates)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Merge B2B + 2C partials into reports/YYYY-MM-DD.md")
     parser.add_argument("--date", default=_beijing_today(), help="Beijing date YYYY-MM-DD")
+    parser.add_argument("--all", action="store_true", help="Merge every date found under reports/partials/")
     args = parser.parse_args()
+
+    if args.all:
+        dates = all_partial_dates()
+        if not dates:
+            print("No partials under reports/partials/; nothing to merge.")
+            return 0
+        for d in dates:
+            print(f"Merged report → {merge(d)}")
+        return 0
+
     out = merge(args.date)
     print(f"Merged report → {out}")
     return 0
