@@ -1,0 +1,23 @@
+{
+  "name": "concord-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Concord — 多 Agent 协作失调诊断器：吃事件驱动多 Agent 运行时的运行事件流，用关系性/时间性检测器自动判出协作反模式（活锁 / 重试风暴 / 无主任务 / 重复写入冲突 / 空转），给出因果链、浪费成本与修复处方（纯前端 mock Demo）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.8"
+  }
+}

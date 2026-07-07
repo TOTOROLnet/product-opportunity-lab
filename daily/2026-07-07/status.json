@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-07",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-07.md",
+  "opportunity": {
+    "selected": "Concord — 多 Agent 协作失调诊断器（Coordination-Failure Detective）",
+    "score": 24,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 2,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-07/",
+  "generated_at": "2026-07-07T09:19:22+08:00"
+}
