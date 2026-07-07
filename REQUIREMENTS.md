@@ -25,6 +25,7 @@
 
 - 读取最近 **1 份** product-hunt-radar 报告（`--days 1`）。
 - 来源：public 仓库 `TOTOROLnet/product-hunt-radar` 的 `reports/YYYY-MM-DD.md`。
+- 报告含两大板块：技术向 / B2B / 基础设施 AI 与 2C 消费向 AI；机会分析应覆盖两端。
 - 运行时由 `scripts/collect_recent_reports.py` 自拉取，无需 token、无需预先同步。
 - 若完全没有报告：生成 `daily/YYYY-MM-DD/insufficient-input.md` 说明无法分析，正常结束，不报错。
 
@@ -81,9 +82,12 @@ daily/YYYY-MM-DD/
 
 1. 用户痛点强度
 2. 产品机制新意
-3. 与 AI Agent / LLM API / 人机交互方向相关度
+3. AI 核心度（技术向看 Agent/API/基础设施相关度，2C 向看是否 AI-native 消费体验；两类同等评分）
 4. 一天内做 Demo 的可行性
-5. 对用户工作的启发价值
+5. 对用户工作 / 消费级 AI 市场判断的启发价值
+
+> 机会来源覆盖上游报告的**两大板块**：技术向 / B2B / 基础设施 AI，以及 2C 消费向 AI。
+> 只做 AI 产品机会；不要只从技术向板块选题而系统性忽略 2C。
 
 门槛：选总分最高者；最高分 < 16/25 则不做 Demo，只输出机会观察（status=PARTIAL）。
 

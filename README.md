@@ -15,6 +15,9 @@
 - `product-hunt-radar` = 信号采集层 / 产品情报库 / 稳定输入源
 - `product-opportunity-lab` = 机会分析层 / 原型实验场 / Loop Engineering 工作区
 
+radar 报告分两大板块：**技术向 / B2B / 基础设施 AI** 与 **2C 消费向 AI**（均限 AI 产品）；
+lab 的机会分析覆盖两端，避免只盯技术产品而漏掉消费级市场信号。
+
 ## 每天产出
 
 ```text
