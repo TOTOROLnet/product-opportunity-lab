@@ -1,0 +1,23 @@
+{
+  "name": "untangle-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Untangle — 把一段口述乱麻整理成可确认的思路卡：思路单元分类 + 矛盾/改主意检测 + 逐条人工确认（纯前端交互 Demo）",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "typescript": "^5.6.2",
+    "vite": "^5.4.2"
+  }
+}
