@@ -1,0 +1,23 @@
+{
+  "name": "rootline-genmai-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Rootline (根脉) — provenance & compaction-loss auditor for model-native multi-agent (in-call subagent tree) calls. Static frontend demo (mock data).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
