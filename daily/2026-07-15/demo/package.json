@@ -1,0 +1,23 @@
+{
+  "name": "earmark-erji-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "耳记 (Earmark) — turns any long document into an active-recall audio lesson: you listen, get interrupted by Socratic checkpoints, watch a live retention map build, and get an auto-scheduled 60s re-listen queue for weak concepts. Reframes 'document → audio' from content consumption to measurable retention. Static frontend demo (mock corpus, real recall/mastery logic, browser speechSynthesis for optional narration).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

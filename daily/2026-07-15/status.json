@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-15",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-15.md",
+  "opportunity": {
+    "selected": "耳记（Earmark）— 把文档→音频从内容消费重构为主动回忆式学习",
+    "score": 22,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-15/",
+  "generated_at": "2026-07-15T00:28:00Z"
+}
