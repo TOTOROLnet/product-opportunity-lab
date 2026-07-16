@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-16",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-16.md",
+  "opportunity": {
+    "selected": "师承（Shicheng）— 领域专家用批改带教出可复用、可检验的 Agent Skill",
+    "score": 23,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-16/",
+  "generated_at": "2026-07-16T00:24:00Z"
+}
