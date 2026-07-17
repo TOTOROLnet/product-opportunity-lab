@@ -1,0 +1,23 @@
+{
+  "name": "evergreen-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "常青 Evergreen — a living-document freshness agent. Each load-bearing claim in a document is bound to a real source; when sources change, the agent pinpoints the exact stale sentence, drafts a minimal patch (review-before-apply), and maintains a document freshness score. A real deterministic engine maps claim<->source versions and recomputes freshness, so the before/after value is measured, not faked. Static frontend demo (mock refund-SOP corpus, mock source timeline, no backend/LLM/external API).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
