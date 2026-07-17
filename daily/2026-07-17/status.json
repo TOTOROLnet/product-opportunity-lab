@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-17",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-16.md",
+  "opportunity": {
+    "selected": "常青（Evergreen）— 活文档鲜度守护 agent：论断绑定真实来源，来源变化即精确到句检出静默失真、生成最小补丁、维护文档鲜度分",
+    "score": 23,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-17/",
+  "generated_at": "2026-07-17T00:26:00Z"
+}
