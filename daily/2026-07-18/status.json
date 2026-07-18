@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-18",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-18.md",
+  "opportunity": {
+    "selected": "明镜 GlassTutor — 可被学习者校正的「玻璃盒」自适应导师：把 AI 对你的认知模型摊开、每题说明为何现在考它、并给学习者一等的校正权",
+    "score": 23,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 2,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-18/",
+  "generated_at": "2026-07-18T00:36:00Z"
+}

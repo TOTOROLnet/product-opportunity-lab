@@ -62,7 +62,7 @@ export const SKILLS: Skill[] = [
   {
     id: 'window',
     name: '窗口函数',
-    short: 'WINDOW',
+    short: 'WIN',
     desc: 'OVER / PARTITION BY、ROW_NUMBER、RANK',
     prereqs: ['groupby', 'join'],
     trueMastery: 0.15,

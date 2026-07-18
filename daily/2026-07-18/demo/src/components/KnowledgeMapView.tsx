@@ -2,7 +2,7 @@ import { useState } from 'react';
 import type { ModelState, EvidenceEntry } from '../types';
 import { SKILL_BY_ID } from '../data/skills';
 import { isMastered } from '../logic/engine';
-import { SkillGraph, MasteryBar, pct, skillName } from './shared';
+import { SkillGraph, MasteryBar, pct } from './shared';
 
 interface Props {
   model: ModelState;

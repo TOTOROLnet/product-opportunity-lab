@@ -22,7 +22,7 @@ export function MasteryBar({ mastery }: { mastery: number }) {
 
 // ---- 技能图谱布局（SVG，坐标固定，无需测量 DOM）----
 const VB_W = 720;
-const VB_H = 320;
+const VB_H = 332;
 const NODE_W = 104;
 const NODE_H = 44;
 
@@ -35,7 +35,7 @@ const POS: Record<string, { x: number; y: number }> = {
   join: { x: 130, y: 220 },
   groupby: { x: 330, y: 220 },
   subquery: { x: 545, y: 220 },
-  window: { x: 300, y: 300 },
+  window: { x: 300, y: 298 },
 };
 
 interface GraphProps {
