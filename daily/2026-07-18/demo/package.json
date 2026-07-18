@@ -1,0 +1,23 @@
+{
+  "name": "glasstutor-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "明镜 GlassTutor — a glass-box, learner-steerable adaptive tutor. Instead of hiding the AI's estimate of what you know inside a server-side black box, GlassTutor exposes that knowledge model as the first screen: every skill's mastery, confidence and the evidence behind it are visible; every question explains 'why this one, now'; and the learner has a first-class right to correct the model (mark a careless slip, redirect the learning path). A real deterministic mastery engine (IRT-lite update + prerequisite-aware, uncertainty-driven item selection) recomputes the path, so the before/after value (redundant drills saved) is measured, not faked. Static frontend demo (mock SQL skill graph + mock questions, no backend/LLM/external API).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
