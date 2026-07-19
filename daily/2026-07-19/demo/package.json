@@ -1,0 +1,23 @@
+{
+  "name": "cobaton-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "并笔 CoBaton — a conflict-resolution / write-arbitration layer that sits UNDER any editor for human+agent co-editing of the same live document. Instead of merely avoiding collisions (isolate-by-section + flicker-free rendering, as OpenMarkdown does), CoBaton RESOLVES them: a deterministic region-ownership state machine + a baton hand-off protocol (human presence claims a region; the agent announces intended regions; overlaps are DEFERRED, not dropped; deferred agent edits are RE-VALIDATED against the human's latest changes before landing). It guarantees: never touch the region you're actively editing, never silently drop your edits, never waste the agent's work on a region you're about to change, always re-validate a deferred edit. A real deterministic engine replays the SAME co-editing event trace through both a naive (last-write-wins) mode and CoBaton mode, so the before/after value (lost edits / interruptions / wasted agent edits) is measured, not faked. Static frontend demo (mock doc + scripted timeline, no backend/LLM/real agent/external API).",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
