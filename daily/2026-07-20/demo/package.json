@@ -1,0 +1,24 @@
+{
+  "name": "aptly-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "知时 Aptly — 垫在任意「环境记忆源」（如 Rewisp）之上的『主动召回决策层』。环境记忆最痛的场景是『你根本没意识到自己忘了』，而 PULL 式查询解不了这个悖论；朴素的 PUSH 式提醒又必然沦为噪音。知时用『相关度×时效×可行动性×新鲜度』打分，并用一个滚动的『打扰预算』闸门 + 去重 + 过时抑制，决定此刻是把某条旧记忆推到你眼前、还是保持安静。一个确定性引擎在同一条脚本化的『一个上午』工作流上，用『朴素推送』与『知时』两种策略回放，把『克制的价值』（更少打扰 / 更高精确率 / 不漏关键 / 零过时误导）实测出来而非编造。纯前端静态 Demo（mock 数据 + 脚本化时间线，无后端/LLM/真实 agent/外部 API）。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
