@@ -1,0 +1,11 @@
+{
+  "date": "2026-07-21",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-21.md",
+  "opportunity": { "selected": "信任阶梯 TrustLadder", "score": 22, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 1, "tech": "vite-react-ts", "strategy": "simulation" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-21/",
+  "generated_at": "2026-07-21T00:20:00Z"
+}

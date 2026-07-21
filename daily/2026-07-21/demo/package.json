@@ -1,0 +1,24 @@
+{
+  "name": "trustladder-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "信任阶梯 TrustLadder — 一层横切任意自主 ops agent 的『写权限渐进授权层』。它把人对 agent 动作的批准/拒绝决策实时编译成可撤销的分级自动放行策略：对相似动作聚类，当你的一致性证据达标时主动建议把某类『低可逆·低风险』动作提升为自动放行，让重复审批被机器接管、人的注意力收敛到真正高风险/新型的动作上；任一被自动放行的动作一旦被反转/投诉，该类信任立即降一格并暂停自动——把报告里那句『信任要一格一格挣』做成可运行的状态机。一个确定性引擎在同一条脚本化的多 agent 动作流上，用『全人工闸门』与『信任阶梯』两种策略回放，实测审批负荷下降、覆盖率与高风险动作零漏审。纯前端静态 Demo（mock 数据 + 脚本化时间线，无后端/LLM/真实 agent/外部 API）。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
