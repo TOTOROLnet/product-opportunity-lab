@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-22",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-22.md",
+  "opportunity": {
+    "selected": "付前一秒 CommitGuard — 消费者侧的 agentic 成交守门人：在 AI 消费 agent 点下确认支付的前一秒，把待成交订单摊开成人话核验单（意图对齐 diff / 真实总价拆解 / 陷阱雷达 / 可逆性评分），让人看清代价再一键批准/让 agent 改/拒绝。把 CartAI 一笔带过的『退款与纠纷归属复杂』翻译成成交前可见可决策的量，站在消费者一侧、成交前、跨商户，与卖家侧清算层方向相反。",
+    "score": 23,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-22/",
+  "generated_at": "2026-07-22T00:24:00Z"
+}

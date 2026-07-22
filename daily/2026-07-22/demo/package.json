@@ -1,0 +1,24 @@
+{
+  "name": "commitguard-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "付前一秒 CommitGuard — 夹在你的 AI 消费 agent 与钱包之间的『成交守门人』。当 agent 即将点下确认支付的前一秒，CommitGuard 把它要成交的那一单摊开成人话核验单：意图对齐 diff（你要的 vs agent 真要买的）、真实总价拆解（标价 vs 含隐藏费的真实总额）、陷阱雷达（自动续订/预勾选加购/drip pricing/不可退等 dark pattern 逐条定级）、可逆性评分 0–100，让你看清代价再一键批准/让 agent 改/拒绝。它把 CartAI 一笔带过的『退款与纠纷归属复杂』翻译成成交前可见可决策的量，站在消费者一侧、跨商户，与卖家侧的清算层方向相反。纯前端静态 Demo（mock 数据 + 确定性核验引擎，无后端/LLM/真实支付/外部 API）。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
