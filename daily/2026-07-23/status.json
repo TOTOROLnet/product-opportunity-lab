@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-23",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-23.md",
+  "opportunity": {
+    "selected": "上手 Knack — AI 用法教练（行为诊断优先）：把『学会用 AI』从课程优先翻转为行为诊断优先，回看你自己最近 N 次和 AI 的真实协作，诊断你反复犯的用法失手签名（目标含糊/没给范例/一股脑倒 context/首稿即收/要事实不给依据/中途改需求…），按浪费的返工轮次排序，为 Top 失手生成针对你的可迁移招式 + 用你自己那次会话做的 before/after 复盘，并用『上手指数』量化长进；因每次从你最新用法重新诊断而抗过时。攻击的正是报告点名 AGINE Academy 的两大软肋（学完不知会不会用 / 课程易过时），机制、数据来源、留存逻辑均与其（课程优先）不同，非照抄。",
+    "score": 20,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-23/",
+  "generated_at": "2026-07-23T00:26:00Z"
+}
