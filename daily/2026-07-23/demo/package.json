@@ -1,0 +1,24 @@
+{
+  "name": "knack-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "上手 Knack — 一个 AI 用法教练。把『学会用 AI』从课程优先翻转为行为诊断优先：回看你自己最近 N 次和 AI 的真实协作，诊断你反复犯的用法失手签名（目标含糊/没给范例/一股脑倒 context/首稿即收/要事实不给依据/中途改需求…），按浪费的返工轮次排序，为你的 Top 失手生成针对你的可迁移招式 + 用你自己那次会话做的 before/after 复盘，并用『上手指数』量化长进；因为每次从你最新用法重新诊断，所以不像课程那样过时。区别于 AGINE Academy（课程优先的游戏化闯关）与只改单条 prompt 的优化器。纯前端静态 Demo：mock 语料 + 确定性诊断引擎，无后端/LLM/真实支付/登录/外部 API。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
