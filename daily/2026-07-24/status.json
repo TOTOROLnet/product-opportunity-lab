@@ -1,0 +1,11 @@
+{
+  "date": "2026-07-24",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-24.md",
+  "opportunity": { "selected": "榫卯 Tenon — 多 agent 共享工件的接口契约 + 漂移哨兵", "score": 22, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 1, "tech": "vite-react-ts", "strategy": "simulation" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-24/",
+  "generated_at": "2026-07-24T00:26:00Z"
+}
