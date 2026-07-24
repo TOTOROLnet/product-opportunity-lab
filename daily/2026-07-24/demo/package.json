@@ -1,0 +1,24 @@
+{
+  "name": "tenon-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "榫卯 Tenon — 多 agent 共享工件的『接口契约 + 漂移哨兵』。给 Blaxel Agent Drive 这类多 agent 共享盘架一层『类型系统 + 集成测试』：在生产者 agent 改坏工件形状/单位/语义、下游 agent 静默误读之前，于写入时按契约拦截、算清下游影响、给出最小迁移补丁。纯前端静态 Demo：mock 3-agent 流水线 + 确定性漂移引擎，无后端/LLM/真实文件系统/支付/登录/外部 API。区别于 Blaxel（存储/隔离管道）与 valv/Kastra/HOL Guard（动作授权治理栈）。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
