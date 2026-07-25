@@ -1,0 +1,24 @@
+{
+  "name": "huohou-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "火候 Huohou — 微调/蒸馏前的『该不该训·训哪片·数据够不够·值不值』决策与数据预检台。基于你已有的前沿模型调用轨迹，先给出 lever 建议（prompt/RAG/路由/微调/蒸馏五选一），对多数任务诚实地说『别训』，只对真正值得的片子给可训练性评分、数据集预检与 ROI，并导出交给训练平台的清单。纯前端静态 Demo：mock 轨迹 + 确定性引擎，不训练/不碰 GPU/不调 LLM/无后端/无登录/无支付/无外部 API。是 Freesolo Flash（训练执行层）的互补上游，而非克隆。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
