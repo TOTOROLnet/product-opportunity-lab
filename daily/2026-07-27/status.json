@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-27",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-27.md",
+  "opportunity": {
+    "selected": "合流 Héliú — AI Agent 批量变更的联动风险预演台（dry-run + 碰撞检测）",
+    "score": 23,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 2,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-27/",
+  "generated_at": "2026-07-27T00:30:00Z"
+}
