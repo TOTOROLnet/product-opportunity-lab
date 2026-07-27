@@ -1,0 +1,24 @@
+{
+  "name": "heliu-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "合流 Héliú — AI Agent 批量变更的联动风险预演台（dry-run + 碰撞检测）。当电商/运营 Agent（如 Athena）一次提交一批写操作时，不逐条预览，而是把整批物化后做 dry-run，专门抓『每条各自合法、叠加后违规』的涌现冲突（跌破成本/促销超叠加/促销无库存/包邮亏毛利/品类迁移致意外折扣资格），让人在计划层剔除并给出单一回滚点。纯前端静态 Demo：mock 商品目录 + mock Agent 批量变更 + 确定性业务规则引擎，无后端/LLM/数据库/支付/登录/外部 API。区别于 Athena/PureBox/Openbase（逐条预览确认）。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
