@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-28",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-28.md",
+  "opportunity": {
+    "selected": "验己 Yànjǐ — 个人健康 n-of-1 自我实验教练（把健康 AI 的主动建议变成对照实验 + 能识破安慰剂/均值回归/数据不足的诚实读数）",
+    "score": 20,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-28/",
+  "generated_at": "2026-07-28T00:24:00Z"
+}
