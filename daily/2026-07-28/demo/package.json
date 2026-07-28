@@ -1,0 +1,24 @@
+{
+  "name": "yanji-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "验己 Yànjǐ — 个人健康『n-of-1 自我实验教练』。坐在健康 AI（如 Illume / ChatGPT Health）主动建议的下游：把『你该试试 X』变成一场为你一个人设计的对照实验（预登记假设、基线期、只盯一个主指标、由你自己的噪声推出所需天数、明确成败线），再用能识破安慰剂 / 均值回归 / 数据不足的确定性读数引擎，诚实给出『有效 / 数据不足 / 疑似安慰剂』的结论——对大多数建议敢说『没证据』。纯前端静态 Demo：mock 三场实验时间序列 + 确定性读数引擎，无后端 / LLM / 数据库 / 真实健康数据 / 外部 API。区别于 Illume（多源融合的主动建议助手）：验己做的是建议的验证层与诚实读数，不是又一个推送建议的助手。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
