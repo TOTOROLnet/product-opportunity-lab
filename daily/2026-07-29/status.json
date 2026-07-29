@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-29",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-29.md",
+  "opportunity": {
+    "selected": "准星 Zhǔnxīng — 运行时 LLM 判官的『归零校准台』（坐在『评估即执行』上游，做判官本身的元评估/校准：混淆矩阵 + 误杀/漏放率 + 代价曲线 + 失败模式补丁，回答『谁来评估评估者』）",
+    "score": 22,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-29/",
+  "generated_at": "2026-07-29T00:27:00Z"
+}
