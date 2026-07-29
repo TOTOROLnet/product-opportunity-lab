@@ -1,0 +1,23 @@
+{
+  "name": "zhunxing-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "准星 Zhǔnxīng — 运行时 LLM 判官的『归零校准台』。坐在『评估即执行』（如 Prefactor 把评估接到 hold/approve/block/kill）的上游：在把 LLM-as-judge 接到运行时拦/杀开关之前，先用你自己的真实争议案例给它归零——用一份带人类专家真值的黄金集算出该判官在任意阈值下的混淆矩阵（误杀/漏放/命中/正常放行）、误杀率与漏放率、以及『每拦下 1 个坏动作要误伤多少正常业务』的代价曲线，并钻取判官与人类分歧的案例、定位失败模式（关键词过度触发 / 注入漏判）并验证补丁效果，再决定阈值与是否敢让它开火。纯前端静态 Demo：mock 15 条争议 agent run + 确定性统计引擎，无后端 / LLM / 数据库 / 真实数据 / 外部 API。区别于 Prefactor（评估驱动的运行时执行平台）：准星做的是判官本身的校准与验收（eval the evaluator），不下达任何运行时动作。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
