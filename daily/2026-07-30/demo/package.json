@@ -1,0 +1,23 @@
+{
+  "name": "shoubo-signoff-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "收播 Sign-Off — 把你的『稍后读/稍后看』积压做成一档 AI 主持、每天会结束的节目。AI 只做主持/策展（选条、排成起承转合的弧线、写串场口播与收尾），一个字正文都不生成；节目刻意有限、放完就收播（反无限流），且顺手清空你自己的积压。纯前端静态 Demo：mock 积压 + 预置串场口播 + 确定性编排引擎，无后端 / LLM / 数据库 / 登录 / 支付 / 外部 API。借用被报告低估的 SUB/WAVE 洞察（AI 当主持而非生成器、反算法），但媒介（阅读观看积压 vs 音乐直播）、受众（大众个人 vs homelab）、机制（会结束+清积压 vs 共享直播流）均不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

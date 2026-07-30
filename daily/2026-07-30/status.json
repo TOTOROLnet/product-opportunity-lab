@@ -1,0 +1,27 @@
+{
+  "date": "2026-07-30",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-07-29.md",
+  "opportunity": {
+    "selected": "收播 Sign-Off — 把你的『稍后读/稍后看』积压做成一档 AI 主持、每天会结束的节目：AI 只做主持/策展（选今天放哪几条 + 排成起承转合的弧线 + 写串场口播与收尾），一字正文都不生成；节目刻意有限、放完就收播（反无限流），并顺手清空你自己的积压。借用报告中被低估的 SUB/WAVE 洞察（AI 当主持而非生成器、反算法），但媒介（阅读观看积压 vs 音乐直播）、受众（大众个人 vs homelab）、机制（会结束+清积压 vs 共享直播流）均不同，非照抄。",
+    "score": 21,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "interactive"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-07-30/",
+  "generated_at": "2026-07-30T00:30:00Z"
+}
