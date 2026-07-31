@@ -1,0 +1,23 @@
+{
+  "name": "yizheng-recall-trust-gate-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "忆证 Yìzhèng — Agent 记忆的回忆信任闸（Recall Trust Gate）。在 agent 用某条记忆去动手之前，先给这条记忆验明『来源 × confirm 次数 × 时效 × 矛盾』，低于信任阈值就拦下来复核，而不是静默照做；并提供矛盾对账台（退役/以新为准/pin/再确认）。纯前端静态 Demo：mock 记忆 + 确定性可解释 trust 公式 + before/after 价值可视化，无后端 / LLM / 数据库 / 登录 / 支付 / 外部 API。与 Liminal（存储）/FlowTask（写入门）/Prefactor（产出评估）不同，非照抄——它是存储无关的 recall-time 记忆信任层。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
