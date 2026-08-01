@@ -1,0 +1,23 @@
+{
+  "name": "windtunnel-wasm-agent-runtime-preflight-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "风洞 WindTunnel — WASM agent 运行时『迁移前风洞』。把你 agent 的真实工具负载放进风洞，先算清它在进程内 WASM 运行时（如 agentOS）里到底能不能跑、到底省多少——用你的负载说话，而不是厂商头条的 254×。纯前端静态 Demo：4 个 mock 负载 + 确定性可解释成本/兼容引擎（阿姆达尔式：native部分/254 + fallback部分×开销）+ before/after 价值可视化 + 交互滑杆，无后端 / LLM / 数据库 / 登录 / 支付 / 外部 API / 真实运行时。厂商中立、迁移前、敢说别迁——与 agentOS（卖运行时、报喜）/TraceLLM（事后观测）不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
