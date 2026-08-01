@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-01",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-01.md",
+  "opportunity": {
+    "selected": "风洞 WindTunnel — WASM agent 运行时『迁移前风洞』：厂商中立、坐在采纳决策上游，用你 agent 的真实工具负载做兼容 X 光（native 便宜 / mount 按需真沙箱 / blocked 跑不了）+ 诚实成本·延迟预测，把厂商头条 254× 换算成你这套负载的真实倍数，并给出厂判定与逐项改造建议，敢说『别迁』。核心洞察是阿姆达尔式成本地板：只要 5% 负载是重活，254× 就塌成 ~16×。踩报告 A 类头号信号 agentOS(17/18) 但逆向-上游：基准不是账单。与 agentOS（执行引擎、报喜）/TraceLLM（事后观测）对象·位置·激励三重不同，非照抄。",
+    "score": 21,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-01/",
+  "generated_at": "2026-08-01T00:28:00Z"
+}
