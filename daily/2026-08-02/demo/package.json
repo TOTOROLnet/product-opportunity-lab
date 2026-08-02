@@ -1,0 +1,23 @@
+{
+  "name": "downshift-model-swap-preflight-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "换挡 Downshift — 模型迁移的『按成功任务计价』离线复盘台。面对 DeepSeek-V4-Flash 这类『便宜三倍』的新模型，用你自己的 agent trace 重放，算清每个成功任务到底省不省钱、掉不掉成功率，再给可执行裁决（值得换/有条件换/先修再换/别换）——而不是被 $/token 单价和厂商榜单牵着走。纯前端静态 Demo：4 个 mock 工作负载 + 确定性成本引擎（每成功任务成本=每任务成本÷成功率）+ before/after 价值可视化 + 盈亏平衡滑杆，无后端/LLM/数据库/登录/支付/外部 API/真实模型调用。厂商中立、买方视角、敢说别换——与 DeepSeek（被评估的模型、报喜）/风洞 WindTunnel（运行时成本倍率、不碰成功率）不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
