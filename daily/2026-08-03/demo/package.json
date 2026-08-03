@@ -1,0 +1,23 @@
+{
+  "name": "poise-agent-discretion-rehearsal-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "分寸 Poise — 个人 AI 代表『上岗前的分寸彩排 + 授权边界』台。在让 Zinley/Vela/Pally 式代表用你的名义打电话/回邮件之前，先用真实情境把它彩排一遍，合成一张可读可编辑的『分寸画像』（话题×风险的授权刻度 + 语气卡 + 红线），再回放一周互动看清它会替你处理/拟稿/退回/拦下多少、差点出格几件，一键收紧后实时重算。纯前端静态 Demo：确定性授权引擎 + 全 mock 情境，无后端/LLM/数据库/登录/支付/外部 API/真实电话邮件。厂商中立、自己不执行任何对外动作——与 Zinley（执行型分身、报喜）不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
