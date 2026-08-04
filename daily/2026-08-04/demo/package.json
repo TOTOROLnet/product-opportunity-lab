@@ -1,0 +1,23 @@
+{
+  "name": "yoshu-honest-form-coach-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "有数 Yǒushù — 诚实的端侧实时动作教练。把『感知置信度』而非『纠错覆盖率』做成第一原则：看得见才教、看不清就明说且不瞎数不瞎纠、动作垮了就喊停；只认真正看清并达标的次数，用诚实+剂量替代同类的数满+讨好。纯前端静态 Demo：确定性引擎 + 全 mock 关节数据（模拟端侧 CV 输出），无摄像头/CV 模型/后端/LLM/数据库/登录/支付/外部 API。演示的是可信度切入点，与 CoachAI（覆盖率导向）目标函数相反，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
