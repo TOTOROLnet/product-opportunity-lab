@@ -72,7 +72,6 @@ export default function App() {
         <Ledger
           scenario={scenario}
           result={result}
-          overrides={overrides}
           onToggle={toggle}
           onResetAll={resetAll}
           onAlignAll={alignAll}

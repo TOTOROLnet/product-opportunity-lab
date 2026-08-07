@@ -5,13 +5,11 @@ import type {
   Reconciled,
   ReconcileResult,
   Scenario,
-  Severity,
   StepPlan,
   Verdict,
 } from '../types';
 
-// 严重度排序，用于取「最坏」裁决。
-const SEVERITY_RANK: Record<Severity, number> = { none: 0, low: 1, medium: 2, high: 3 };
+// 裁决排序，用于取步骤的「最坏」裁决。
 const VERDICT_RANK: Record<Verdict, number> = {
   'auto-continue': 0,
   skip: 1,

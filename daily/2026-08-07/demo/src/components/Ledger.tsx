@@ -15,14 +15,12 @@ const KIND_LABEL: Record<string, string> = {
 export function Ledger({
   scenario,
   result,
-  overrides,
   onToggle,
   onResetAll,
   onAlignAll,
 }: {
   scenario: Scenario;
   result: ReconcileResult;
-  overrides: Set<string>;
   onToggle: (id: string) => void;
   onResetAll: () => void;
   onAlignAll: () => void;
