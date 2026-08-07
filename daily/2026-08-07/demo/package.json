@@ -1,0 +1,23 @@
+{
+  "name": "guiwei-resume-safety-gate-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "归位 Guīwèi — 长任务 Agent 复跑前的『世界重校安检台』。在 Agent 按 append-only 日志原地续跑之前，把它记得的世界(T0)与现在的世界(T1)并排对齐、逐条算漂移、裁决该不该续。回放还原 Agent，归位还原『续跑是否安全』。纯前端静态 Demo：确定性引擎 + 全 mock 世界快照，无后端/LLM/数据库/登录/支付/外部 API。演示的是复跑前世界重校这一创新切入点，与 Muse Code（恢复引擎，目标是无缝续）目标函数相反，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
