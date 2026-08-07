@@ -1,0 +1,11 @@
+{
+  "date": "2026-08-07",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-07.md",
+  "opportunity": { "selected": "归位 Guīwèi — 长任务 Agent 复跑前的世界重校安检台", "score": 23, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 2, "tech": "vite-react-ts", "strategy": "simulation" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-07/",
+  "generated_at": "2026-08-07T00:24:00Z"
+}
