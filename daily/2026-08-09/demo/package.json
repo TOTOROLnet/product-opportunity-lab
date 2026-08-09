@@ -1,0 +1,23 @@
+{
+  "name": "zhengming-tool-surface-disambiguator-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "正名 Zhèngmíng — 聚合 MCP 工具面的『意图对号』与影子雷达。坐在 MCP 网关 / lazy-discovery meta-tool 层之上、厂商中立、只读：给一片聚合后的工具面 + 一组真实意图，模拟 Agent 会检索/选中哪个工具，逐条判决 唯一正确/多义/危险近邻/盲区，用影子雷达可视化命名冲突与语义重叠，再一键『正名』看 before/after。纯前端静态 Demo：确定性检索引擎 + 全 mock 工具面/意图集，无后端/LLM/数据库/密钥/登录/支付/外部 API。演示『网关之上的意图↔工具消歧』这一创新切入点，不聚合、不省 token、不管密钥，与 Toolport（MCP 网关）机制本质不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
