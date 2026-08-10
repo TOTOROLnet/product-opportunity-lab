@@ -1,0 +1,23 @@
+{
+  "name": "pretune-preflight-copilot-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "预调 Pretune — 本地后训练的『飞行前副驾』。在你敲 train 之前，一层厂商中立、透明可审计的决策与显存可行性副驾：该不该微调 / 这张卡塞不塞得下 / 该用哪种方法（SFT-LoRA / DPO / ORPO / SimPO / KTO / 蒸馏 / RAG）。纯前端静态 Demo：确定性决策引擎 + 透明显存公式 + 全 mock 数据，不接后端/LLM/数据库/密钥/登录/支付/外部 API。演示『训练之前的透明决策+显存预算层』这一创新切入点，与 Soup CLI（执行层/黑箱自动决策）本质不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
