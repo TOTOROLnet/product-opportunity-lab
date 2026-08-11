@@ -1,0 +1,23 @@
+{
+  "name": "zhongdu-reception-simulator-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "众读 Zhòngdú — 发送前的『读者接收预演台』。把你只发一次、发错就亏的一段文字，先交给一屋子各不相同的 AI 读者逐字读一遍，看清他们在哪一句流失、哪句困惑、哪句反感——只诊断落地效果，不替你改写。纯前端静态 Demo：确定性接收引擎 + 词级热力图 + 全 mock 的脚本化读者反应，不接后端/LLM/数据库/密钥/登录/支付/外部 API。演示『把多 AI 同台从辩论表演反转为接收模拟 + 流失点诊断』这一创新切入点，与 AI Group Call（语音辩论）、写作助手（代写）本质不同，非照抄。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
