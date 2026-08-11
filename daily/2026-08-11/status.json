@@ -1,0 +1,11 @@
+{
+  "date": "2026-08-11",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-11.md",
+  "opportunity": { "selected": "众读 Zhòngdú — 发送前的读者接收预演台（把多 AI 同台从辩论表演反转为读者接收模拟）", "score": 21, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 2, "tech": "vite-react-ts", "strategy": "interactive" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-11/",
+  "generated_at": "2026-08-11T00:30:00Z"
+}
