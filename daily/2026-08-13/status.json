@@ -1,0 +1,11 @@
+{
+  "date": "2026-08-13",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-13.md",
+  "opportunity": { "selected": "顺口 Shùnkǒu — 母语差距教练（把英语学习的分析单位从『词/音素/单句错误』升级为『你反复出现的产出习惯 idiolect gap』，从真实自由产出里聚类发现、做成可随练习收敛的个人口音图谱、再精准补差；刻意不做发音，只做发音之上的地道度，区别于 Linforge/ELSA/Grammarly）", "score": 21, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 1, "tech": "vite-react-ts", "strategy": "interactive" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-13/",
+  "generated_at": "2026-08-13T00:30:00Z"
+}
