@@ -1,0 +1,23 @@
+{
+  "name": "shunkou-native-gap-coach-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "顺口 Shùnkǒu — 母语差距教练（Native-Gap Coach）。从你的真实英文产出里聚类出让你『不地道』的那几个反复出现的习惯，做成一张会随练习可见收敛的个人口音图谱，再精准补掉——不碰发音，只做发音之上的地道度。纯前端静态 Demo：脚本化『模拟 AI 引擎』+ 全 mock 的中文母语者 B1–B2 真实产出语料（任务/母语改写/差异高亮/习惯聚类/间隔微练习），不接后端/LLM/语音/数据库/密钥/登录/支付/外部 API。演示『把学习单位从词/音素/单句升级为你的产出习惯』这一创新切入点，非 Linforge/ELSA(发音)/Grammarly(逐条改错) 的克隆。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
