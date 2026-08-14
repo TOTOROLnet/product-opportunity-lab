@@ -1,0 +1,23 @@
+{
+  "name": "shuoxi-director-revision-desk-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "说戏 Shuōxì — 给「brief→成片」agent 用的导演改稿台（Director's Revision Desk）。不做视频生成，做生成之上、厂商中立的『改稿/导演层』：把视频迭代从『回时间线』或『整片重来』重构为——按镜头给导演笔记（自然语言 + 节奏/情绪/强调/语气控件）+ 锁定已认可镜头 + 只重生成被点名的镜头 + 改动前后 keep-vs-regenerate diff + 成本/保留度可视化。纯前端静态 Demo：脚本化『导演引擎』做确定性、可解释的镜头改写（tracked-changes 式 diff），全 mock 的一条口播短视频初稿，不接后端/LLM/视频生成/数据库/密钥/登录/支付/外部 API。演示的是我们的创新切入点（改稿层），非 Vizard(生成流水线) / CapCut(时间线) 的克隆。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
