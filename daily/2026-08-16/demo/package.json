@@ -1,0 +1,23 @@
+{
+  "name": "zhakou-blast-radius-preflight-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "闸口 Zhākǒu · Sluice — Agent 动作策略的『爆炸半径』上线前预演台（Blast-Radius Preflight for Agent Action Policies）。不做运行时拦截，做上线前的策略设计 + 爆炸半径 what-if：编辑一套厂商中立的护栏策略（分类规则 + 全局开关 + 人审预算 + 默认路径），对一份 mock 的 agent 拟执行动作语料做确定性回放，直接看到哪些自动放行 / 哪些叫人复核 / 哪些一票否决（fail-closed），最坏溜过去的不可逆动作有多大爆炸半径，以及有多少动作落进无规则命中的默认盲区，并与宽松基线做 before/after 对比。纯前端静态 Demo：确定性、可解释的护栏引擎，全 mock，不接后端 / LLM / 真实 agent 运行时 / 数据库 / 支付 / 密钥 / 登录 / 外部 API。演示的是我们的创新切入点（设计期策略预演层），非 Phinq（运行时守卫）的克隆。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

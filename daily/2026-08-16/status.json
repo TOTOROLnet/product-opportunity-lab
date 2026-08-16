@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-16",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-16.md",
+  "opportunity": {
+    "selected": "闸口 Zhākǒu — Agent 动作策略的『爆炸半径』上线前预演台（不做运行时拦截，做设计期的策略设计 + 爆炸半径 what-if：编辑厂商中立护栏策略→对 mock 动作语料确定性回放→看放行/人审/否决三态、漏网不可逆动作的爆炸半径、人审负载 vs 预算、无规则命中的策略盲区，并与宽松基线 before/after 对比；区别于 Phinq 的运行时 fail-closed 守卫）",
+    "score": 24,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 2,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-16/",
+  "generated_at": "2026-08-16T00:30:00Z"
+}
