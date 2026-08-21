@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-21",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-21.md",
+  "opportunity": {
+    "selected": "留痕 Liúhén — Agent 上下文压缩(compaction)的『折叠差异 + 保命清单』审计台（买方侧、厂商中立）：把长程 Agent 中途一次静默压缩变成可读的 before/after 折叠差异（逐条分类 + 风险标注），用『保命清单』规定压缩时必须保留的硬约束/已定决策/踩坑经验，再用回放证明『钉住它就不会跑偏』。刻意区别于 Grok 4.6（产出压缩的模型）/通用 trace 看板/记忆库回忆信任闸",
+    "score": 24,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-21/",
+  "generated_at": "2026-08-21T00:26:00Z"
+}
