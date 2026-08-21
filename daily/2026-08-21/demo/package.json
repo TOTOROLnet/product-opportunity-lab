@@ -1,0 +1,23 @@
+{
+  "name": "liuhen-compaction-audit-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "留痕 Liúhén — Agent 上下文压缩(compaction)的『折叠差异 + 保命清单』审计台。长程 Agent 中途会把长会话静默压缩成摘要——这一步默默替你决定了『什么留、什么扔』，扔错一条硬约束/已定决策，Agent 会在几十步后跑偏、整段返工。留痕把每一次压缩变成可读的折叠差异（before/after 逐条分类 + 风险标注），让你维护一份『保命清单』（pin）规定压缩时必须保留的条目，再用回放证明：钉住它就不会跑偏。纯前端静态 Demo：确定性、可解释的模拟引擎，全 mock，不接后端/LLM/真实上下文/数据库/支付/密钥/登录/外部 API。演示的是我们的创新切入点（买方侧、厂商中立的压缩审计 + 控制面），非 Grok 4.6（产出压缩的模型）克隆，也非通用 trace 看板。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
