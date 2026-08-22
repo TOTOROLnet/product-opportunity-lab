@@ -1,0 +1,11 @@
+{
+  "date": "2026-08-22",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-22.md",
+  "opportunity": { "selected": "绕行 Ràoxíng — 模型路由「回退税」诊断台", "score": 21, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 1, "tech": "vite-react-ts", "strategy": "simulation" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-22/",
+  "generated_at": "2026-08-22T00:28:00Z"
+}
