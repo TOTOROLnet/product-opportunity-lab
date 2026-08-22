@@ -1,0 +1,23 @@
+{
+  "name": "raoxing-model-routing-fallback-tax-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "绕行 Ràoxíng — 模型路由『回退税』诊断台（Fallback-Tax Diagnostics for LLM routing gateways）。接了 Router by Ramp / OpenRouter / 自建 LLM 网关、靠『便宜模型优先 + 自动 fallback』省钱的团队，盯着一个『省了 30–40%』的成本仪表盘，却没有工具告诉他们这个数字里有多少水分。绕行不做又一个路由网关，而做网关看不见的那一层：把『回退税（便宜调用先失败、再打大模型 = 双付 + 尾延迟）』与『静默质量债（便宜模型看似成功、实则输出悄悄变差、仍被记成省钱）』用失败特征聚类（failure-signature clustering）暴露出来，用『账面省 vs 真实省』重新记账，并给出按请求类别的改道建议（内置『别矫枉过正』守卫：只对系统性失败的类别改道，真正省钱的类别继续走便宜）。纯前端静态 Demo：确定性、可解释的模拟诊断引擎，全 mock，不路由真实流量、不接后端 / LLM / 真实网关日志 / 数据库 / 支付 / 密钥 / 登录 / 外部 API。演示的是我们的创新切入点（网关的诊断/归因层 + 诚实记账），非 Router/OpenRouter（路由网关）克隆，非换挡（模型切换成本预检）重做。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
