@@ -1,0 +1,23 @@
+{
+  "name": "bianpu-semantic-change-composer-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "编谱 Biānpǔ — 面向 coding agent 的语义改动谱编排台（Semantic Change Composer）。重度用 coding agent 做跨文件结构性重构的开发者，最常在『一句话交给 agent → 少改/错改/过度改 → 反复纠偏』上损耗：这段『人→agent 的意图交接』今天是散文、藏着人本该拍板的决策（新名字？签名默认值？改动范围？传播到哪些调用点？）、零结构、零可复核，agent 只能猜。编谱不做新语言（Zero 的路），而做一层厂商中立、覆盖现有语言的『结构性改动编排面』：人在代码的符号/依赖图上把改动编排成一份『谱』（一串带类型参数的语义操作：重命名/改签名并传播调用点/抽取能力/改类型），每加一个操作实时看到它展开成的确切语义编辑集合（触达哪些符号/引用/文件、执行顺序），并对散文里没拍板的歧义点拍板参数，最终导出一份无歧义、机读的操作清单（manifest）交给任意 coding agent 照谱演奏、零猜测。纯前端静态 Demo：确定性语义图引擎，全 mock，不接后端 / LLM / 数据库 / 支付 / 登录 / 密钥 / 外部 API，不真正改写用户代码。演示的是我们的创新切入点（人在意图空间编排、agent 拿无歧义清单执行），非 Zero（新系统语言）克隆、非 IDE 单点重构、非让 agent 直接吃散文。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}

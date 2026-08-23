@@ -1,0 +1,11 @@
+{
+  "date": "2026-08-23",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-23.md",
+  "opportunity": { "selected": "编谱 Biānpǔ — 面向 coding agent 的语义改动谱编排台", "score": 21, "threshold": 16, "passed_threshold": true },
+  "demo": { "built": true, "build_attempts": 1, "tech": "vite-react-ts", "strategy": "interactive" },
+  "files": { "opportunity": true, "demo_spec": true, "evaluation": true, "run_log": true, "demo": true },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-23/",
+  "generated_at": "2026-08-23T00:32:00Z"
+}
