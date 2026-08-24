@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-24",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-24.md",
+  "opportunity": {
+    "selected": "召算 Zhàosuàn — 「AI 员工」运行时成本 × 毛利推演沙盘（上线前、厂商中立的架构×定价决策沙盘：输入用户行为画像+定价，横向对比自建VPS/本地/云端常驻/边缘按需四种运行时的月成本、毛利率、沿闲置比/鲸鱼放大/用户规模的毛利转负点、冷启动与隔离-可靠-单位成本不可能三角，给出风险调整后的甜点建议与脚本化顾问解读；区别于 Construct Computer 卖的边缘按需运行时——召算不跑 agent、不接云，卖判断而非运行时）",
+    "score": 23,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-24/",
+  "generated_at": "2026-08-24T00:32:00Z"
+}

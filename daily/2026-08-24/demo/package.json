@@ -1,0 +1,23 @@
+{
+  "name": "zhaosuan-agent-runtime-cost-sandbox-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "召算 Zhàosuàn — 「AI 员工」运行时成本 × 毛利推演沙盘。面向正在/即将上线 computer-use agent 的 solo founder 与小团队：在给 agent 配『电脑』、给产品定价之前，先把四种运行时架构（自建 VPS 常驻 / 本地客户端 / 云端常驻 / 边缘按需召唤）下的月度基础设施成本、毛利随用户规模的『悬崖 / 转负点』、以及『隔离/可靠/单位成本』不可能三角，用可调滑块与图表一次性算清、看明白，并给出甜点架构建议与脚本化『顾问解读』。纯前端静态 Demo：确定性成本模型，全 mock，不接后端 / LLM / 数据库 / 支付 / 登录 / 密钥 / 外部 API，不真正运行任何 agent、不真正开任何云机器。演示的是我们的创新切入点（上线前、厂商中立的架构×定价决策沙盘），非 Construct Computer（一个卖给你的边缘按需运行时）的克隆。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
