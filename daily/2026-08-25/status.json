@@ -1,0 +1,27 @@
+{
+  "date": "2026-08-25",
+  "status": "PASS",
+  "reason": "ok",
+  "source_report": "2026-08-24.md",
+  "opportunity": {
+    "selected": "现成 Xiànchéng — 跨 agent「已验证做法」检索与复用层（运行时之上、厂商中立：新任务开工前先『找现成的』，检索兄弟 agent 是否已在相似意图+环境下成功做过，把那次真实运行蒸馏成已验证、去噪、去弯路的最短动作配方直接复用，附来源、逐步验证信号与『你的环境差在哪』的适配警告；区别于 Construct Computer 卖的运行时与 memory 层的 per-agent 回忆——现成不跑 agent、不卖算力，单位是跨 agent 的已验证配方。骑上 08-24 报告唯一新信号但换到没人做的复用中间层，不重复昨日成本沙盘）",
+    "score": 21,
+    "threshold": 16,
+    "passed_threshold": true
+  },
+  "demo": {
+    "built": true,
+    "build_attempts": 1,
+    "tech": "vite-react-ts",
+    "strategy": "simulation"
+  },
+  "files": {
+    "opportunity": true,
+    "demo_spec": true,
+    "evaluation": true,
+    "run_log": true,
+    "demo": true
+  },
+  "pages_url": "https://totorolnet.github.io/product-opportunity-lab/2026-08-25/",
+  "generated_at": "2026-08-25T00:24:00Z"
+}

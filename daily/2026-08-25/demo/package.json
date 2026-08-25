@@ -1,0 +1,23 @@
+{
+  "name": "xiancheng-cross-agent-recipe-reuse-demo",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "description": "现成 Xiànchéng — 跨 agent「已验证做法」检索与复用层。面向跑一支自治 AI agent 舰队（每台有自己持久计算环境，如 Construct/Epho/自建 VPS）的 solo founder 与小团队：新任务开工前先『找现成的』——检索是否有兄弟 agent 在相似意图+相似环境下已成功做过，并把那次真实运行蒸馏成一条已验证、去噪、去弯路的最短动作配方直接复用，附来源、验证方式与『你的环境差在哪』的适配警告。纯前端静态 Demo：确定性检索/蒸馏打分，全 mock，不接后端/LLM/数据库/支付/登录/密钥/外部 API，不真正运行任何 agent、不连接任何运行时。演示的是我们的创新切入点（运行时之上、厂商中立的跨 agent 做法复用层），非 Construct Computer（运行时服务）或 memory 层的克隆。",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
+}
